@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffssabcloud.forum.domain.DB1.UserRepository">
+    <resultMap id="userMap" type="com.ffssabcloud.forum.domain.User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <select id="findByName" parameterType="String" resultMap="userMap">
+        select id, name
+        from user
+        where name=#{name}
+    </select>
+    <insert 
+        id="addAUser"
+        parameterType="String"
+        flushCache="true">
+        insert into user(name)
+        values(#{name})
+    </insert>
+</mapper>

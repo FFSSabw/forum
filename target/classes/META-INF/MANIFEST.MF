@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: forum
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: fssaw
+Implementation-Vendor-Id: com.ffssabcloud
+Build-Jdk: 1.8.0_161
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+
