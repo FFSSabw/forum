@@ -1,22 +1,24 @@
 package com.ffssabcloud.forum.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ffssabcloud.forum.domain.DB1.UserRepository;
 import com.ffssabcloud.forum.domain.DB2.PostRepository;
+import com.ffssabcloud.forum.service.TestService;
 
-@RestController
-@RequestMapping(value = "/test")
+@Controller
 public class TestController {
     
     @Autowired
     UserRepository userRepository;
     
     @Autowired
-    PostRepository postRepository;
+    TestService testService;
     
     @RequestMapping(value = "/")
     @ResponseBody
@@ -24,18 +26,12 @@ public class TestController {
         return "wellcom to test";
     }
     
-    @RequestMapping(value = "/test_db_config")
-    @ResponseBody
-    public String testDbConfig() {
-        for(int i = 0; i < 10; i++) {
-            userRepository.addAUser("User_" + i);
-        }
+    @RequestMapping(value = "/login")
+    public String login() {
+        System.out.println("login");
         
-        for(int i = 0; i < 10; i++) {
-            postRepository.addAPost("Post_" + i);
-        }
-        
-        return "success";
-        
+        return "login/login";
     }
+    
+    
 }
