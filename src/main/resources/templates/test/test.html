@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Here is Test</h1>
+    <div th:if="${user==null}">
+        <p>尚未登录</p>
+        <a th:href="@{/login}" th:text="点击此处登录"></a>
+    </div>
+    <div th:if="${user!=null}">
+        <h2 th:text="${user.username}">用户名</h2>
+        <h2 th:text="${user.description}">简述</h2>
+        <h2 th:text="${user.location}">简述</h2>
+        <h2 th:text="${user.auth.id}"></h2>
+        <h2 th:text="${user.auth.roleId}"></h2>
+    </div>
+</body>
+</html>

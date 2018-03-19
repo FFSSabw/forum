@@ -7,7 +7,7 @@ public interface Constrants {
      *
      */
     public static class Public {
-        
+        public static final String COOKIE_NAME = "ASessionId";
     }
     
     /**
@@ -29,8 +29,24 @@ public interface Constrants {
         public static final int ADMIN = 2;
     }
     
+    /**
+     * 用户注册
+     *
+     */
     public static class Register {
         public static final String LOCAL = "LOCAL";
         public static final String OAUTH = "OAUTH";
+    }
+    
+    /**
+     * Web
+     *
+     */
+    public static class Web {
+        public static final String COOKIE_NAME = "ASessionId";
+        public static final String COOKIE_VALUE_SEPARATOR = "ASessionId";
+        public static final String COOKIE_SALT = "qwegmkmv;l;";
+        public static final String USER_CACHE_PREFIX = "U_::";
+        public static final String LOCAL_AUTH_CACHE_PREFIX = "L_A::";
     }
 }

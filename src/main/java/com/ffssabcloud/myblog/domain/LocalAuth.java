@@ -1,11 +1,19 @@
 package com.ffssabcloud.myblog.domain;
 
-public class LocalAuth implements Auth{
+import java.io.Serializable;
+
+public class LocalAuth implements Auth, Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 123456789L;
+    
     private int id;
     private int roleId;
     private String username;
-    private String password;
+    private transient String password;
     
+    public LocalAuth() {}
     public LocalAuth(int roleId, String username, String password) {
         this.roleId = roleId;
         this.username = username;
