@@ -1,6 +1,6 @@
 package com.ffssabcloud.myblog.modal;
 
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.User;
 
 public class UserContext implements AutoCloseable{
     

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.UserContext;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
@@ -66,14 +66,14 @@ public class UserController {
         return RestResponseBo.ok("注册成功!");
     }
     
-    @GetMapping(value = "/login")
-    public String login() {
-        return "auth/login";
+    @GetMapping(value = "/signin")
+    public String signin() {
+        return "auth/signin";
     }
     
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/signin")
     @ResponseBody
-    public RestResponseBo doLogin(@RequestParam String username,
+    public RestResponseBo doSignin(@RequestParam String username,
                             @RequestParam String password,
                             @RequestParam(required = false) String rememberMe,
                             HttpServletRequest request,
@@ -98,7 +98,7 @@ public class UserController {
         return RestResponseBo.ok("登录成功!");        
     }
     
-    @RequestMapping(value = "/logout")
+    @RequestMapping(value = "/signout")
     public void logout(HttpServletRequest request,
                         HttpServletResponse response) {
         

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.random(5, '.png')}" th:style="'background:url(/image/background/'+@{${pic}}+');no-repeat;background-size:cover;'">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" th:href="@{/image/favicon.png}" />
+    <title>用户登录</title>
+    <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
+    <style type="text/css">
+    .signin-form {
+        margin: auto;
+        width: 380px;
+        margin-top: 200px;
+        color: #ffffff;
+    }
+
+    .form-signin-heading,
+    .checkbox {
+        color: #ffffff;
+    }
+    </style>
+</head>
+
+<body th:style="'background:url(/image/background/'+@{${pic}}+');no-repeat; background-size: cover;'">
+    <div class="container">
+        <div class="signin-form">
+            <form method="post" id="form-signin" onsubmit="return check_form()">
+                <h2 class="form-signin-heading">Please Sign In</h2>
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+                <label for="firstPassword">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <div>
+                    <p>If you had no register. <a th:href="@{/register}">Click here to register</a></p>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.js}"></script>
+    <script th:src="@{/js/base.js}"></script>
+    <script type="text/javascript">
+    var tale = new $.tale();
+
+    function check_form() {
+        tale.post({
+            url: '/signin',
+            data: $("#form-signin").serialize(),
+            success: function(result) {
+                if (result && result.success) {
+                    window.location.href = '/';
+                } else {
+                    tale.alertError(result.msg || '登录失败');
+                }
+            }
+        });
+        return false;
+    }
+    </script>
+</body>
+
+</html>

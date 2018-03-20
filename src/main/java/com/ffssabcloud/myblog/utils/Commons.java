@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.User;
 
 /**
  * 公共函数

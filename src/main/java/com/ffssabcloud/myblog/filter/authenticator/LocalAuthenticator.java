@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.service.UserService;
 import com.ffssabcloud.myblog.utils.Commons;
 import com.ffssabcloud.myblog.utils.RedisUtils;

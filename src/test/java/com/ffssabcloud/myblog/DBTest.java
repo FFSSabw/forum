@@ -11,9 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ffssabcloud.myblog.domain.LocalAuth;
-import com.ffssabcloud.myblog.domain.Role;
-import com.ffssabcloud.myblog.domain.User;
 import com.ffssabcloud.myblog.domain.dao.UserRepository;
 import com.ffssabcloud.myblog.service.UserService;
 import com.ffssabcloud.myblog.utils.RedisUtils;

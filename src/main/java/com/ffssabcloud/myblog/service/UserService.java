@@ -2,7 +2,8 @@ package com.ffssabcloud.myblog.service;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.User;
+
 
 public interface UserService {
     

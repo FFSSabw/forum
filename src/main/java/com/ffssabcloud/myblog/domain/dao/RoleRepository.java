@@ -3,7 +3,8 @@ package com.ffssabcloud.myblog.domain.dao;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.ffssabcloud.myblog.domain.Role;
+import com.ffssabcloud.myblog.domain.auth.Role;
+
 
 @Component
 public interface RoleRepository {

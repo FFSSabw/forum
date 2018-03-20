@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+
+<body>
+    <div class="blog-nav-container" th:style="'background:url(/image/background/5.png);no-repeat; background-size: cover;'" th:fragment="header-nav">
+        <div class="container">
+            <nav class="blog-nav">
+                <a class="blog-nav-item active" th:href="@{/}">Home</a>
+                <a class="blog-nav-item" href="#">Articles</a>
+                <a class="blog-nav-item" href="#">Press</a>
+                <a class="blog-nav-item" href="#">New hires</a>
+                <a class="blog-nav-item" href="#">About</a>
+                <a class="blog-nav-item nav-float-right" th:href="@{/signin}" th:if="${user == null}">Sign In</a>
+            </nav>
+        </div>
+    </div>
+</body>
+
+</html>

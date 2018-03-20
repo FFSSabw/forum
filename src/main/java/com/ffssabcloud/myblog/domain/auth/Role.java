@@ -1,4 +1,4 @@
-package com.ffssabcloud.myblog.domain;
+package com.ffssabcloud.myblog.domain.auth;
 
 public class Role {
     private int id;

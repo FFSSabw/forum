@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.filter.authenticator.Authenticator;
 import com.ffssabcloud.myblog.filter.authenticator.LocalAuthenticator;
 import com.ffssabcloud.myblog.modal.UserContext;

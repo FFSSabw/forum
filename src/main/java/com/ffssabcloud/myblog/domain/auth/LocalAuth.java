@@ -1,4 +1,4 @@
-package com.ffssabcloud.myblog.domain;
+package com.ffssabcloud.myblog.domain.auth;
 
 import java.io.Serializable;
 

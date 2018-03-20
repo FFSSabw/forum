@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.Auth;
-import com.ffssabcloud.myblog.domain.LocalAuth;
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.Auth;
+import com.ffssabcloud.myblog.domain.auth.LocalAuth;
+import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.domain.dao.UserRepository;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.service.UserService;

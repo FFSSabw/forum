@@ -5,9 +5,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.ffssabcloud.myblog.domain.LocalAuth;
-import com.ffssabcloud.myblog.domain.OAuth;
-import com.ffssabcloud.myblog.domain.User;
+import com.ffssabcloud.myblog.domain.auth.LocalAuth;
+import com.ffssabcloud.myblog.domain.auth.OAuth;
+import com.ffssabcloud.myblog.domain.auth.User;
+
 
 @CacheConfig
 @Component
