@@ -1,22 +1,28 @@
 package com.ffssabcloud.myblog.domain.auth;
 
+
 public class Role {
-    private int id;
+    private Integer id;
+
     private String name;
     
-    public int getId() {
+    public Role() {
+        super();
+    }
+
+    public Integer getId() {
         return id;
     }
-    
-    public void setId(int id) {
+
+    public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 }

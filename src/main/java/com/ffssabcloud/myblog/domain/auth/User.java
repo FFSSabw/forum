@@ -3,42 +3,31 @@ package com.ffssabcloud.myblog.domain.auth;
 import java.io.Serializable;
 
 public class User implements Serializable{
+
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    
-    private int id;
+
+    private Integer id;
+
     private String username;
+
     private String description;
+
     private String location;
-    /**
-     * 记录注册类型
-     * e.g LOCAL WEIBO 
-     */
-    private String registerBy;
-    private Auth auth;
+
+    private String registerby;
     
-    public User() {}
-    
-    public User(String username, String registerBy) {
-        this.username = username;
-        this.registerBy = registerBy;
-    }
-    
-    public User(int id, String username, String description,
-            String location, String registerBy) {
-        this(username, registerBy);
-        this.id = id;
-        this.description = description;
-        this.location = location;
+    public User() {
+        super();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,7 +36,7 @@ public class User implements Serializable{
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public String getDescription() {
@@ -55,7 +44,7 @@ public class User implements Serializable{
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
     public String getLocation() {
@@ -63,24 +52,14 @@ public class User implements Serializable{
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location = location == null ? null : location.trim();
     }
 
-    public String getRegisterBy() {
-        return registerBy;
+    public String getRegisterby() {
+        return registerby;
     }
 
-    public void setRegisterBy(String registerBy) {
-        this.registerBy = registerBy;
+    public void setRegisterby(String registerby) {
+        this.registerby = registerby == null ? null : registerby.trim();
     }
-
-    public Auth getAuth() {
-        return auth;
-    }
-
-    public void setAuth(Auth auth) {
-        this.auth = auth;
-    }
-    
-    
 }

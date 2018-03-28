@@ -1,38 +1,47 @@
 package com.ffssabcloud.myblog.domain;
 
 public class Article {
+    
     /**
      * 文章id
      */
     private Integer id;
+    
     /**
      * 文章标题
      */
     private String title;
+    
     /**
      * 文章创建时间
      */
     private Integer createAt;
+    
     /**
      * 文章修改时间
      */
     private Integer modifyAt;
+    
     /**
      * 文章简述
      */
     private String description;
+    
     /**
      * 文章主体
      */
     private String content;
+    
     /**
      * 文章状态
      */
     private Boolean status;
+    
     /**
      * 点击次数
      */
     private Integer clicks;
+    
     /**
      * 标签列表
      */
