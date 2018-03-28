@@ -9,12 +9,13 @@ import org.springframework.stereotype.Component;
 
 import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.auth.User;
+import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.service.UserService;
 import com.ffssabcloud.myblog.utils.Commons;
 import com.ffssabcloud.myblog.utils.RedisUtils;
 import com.ffssabcloud.myblog.utils.WebUtils;
 
-@Component
+//@Component
 public class LocalAuthenticator implements Authenticator{
     
     @Autowired
@@ -24,7 +25,7 @@ public class LocalAuthenticator implements Authenticator{
     WebUtils webUtils;
     
     @Override
-    public User authenticate(HttpServletRequest request) {
+    public UserInfo authenticate(HttpServletRequest request) {
         ArrayList<String> cookieValues = webUtils.getLoginValuesByCookie(request);
         if(cookieValues == null ) {
             return null;
@@ -44,7 +45,7 @@ public class LocalAuthenticator implements Authenticator{
             return null;
         }
         
-        return userService.getUserByUsername(username);
+        return userService.getUserInfoByUsername(username);
     }
 
 }

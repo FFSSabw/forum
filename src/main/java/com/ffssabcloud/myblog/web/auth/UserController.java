@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.auth.User;
+import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.UserContext;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
@@ -77,17 +80,17 @@ public class UserController {
                             @RequestParam String password,
                             @RequestParam(required = false) String rememberMe,
                             HttpServletRequest request,
-                            HttpServletResponse response) {
-        User user = UserContext.getCurrentUser();
-              
+                            HttpServletResponse response,
+                            HttpSession session) {
+        UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
+   
         try {
-            if(user != null) {
+            if(userInfo != null) {
                 //重定向
                 response.sendRedirect("/");
                 return RestResponseBo.fail("已登录!");
             }
-            user = userService.login(username, password);
-            webUtils.setLoginCookie(response, user.getUsername());
+            userInfo = userService.signin(session, username, password);
         } catch(Exception e) {
             String msg = null;
             if(e instanceof PromptException) {
@@ -95,6 +98,7 @@ public class UserController {
             }
             return RestResponseBo.fail(msg);
         }
+
         return RestResponseBo.ok("登录成功!");        
     }
     
@@ -102,8 +106,7 @@ public class UserController {
     public void logout(HttpServletRequest request,
                         HttpServletResponse response) {
         
-        String username = webUtils.getLoginValuesByCookie(request).get(0);
-        userService.logout(response, username);
+        userService.logout(response);
         
         try {
             response.sendRedirect("/");

@@ -1,16 +1,16 @@
 package com.ffssabcloud.myblog.modal;
 
-import com.ffssabcloud.myblog.domain.auth.User;
+import com.ffssabcloud.myblog.domain.auth.UserInfo;
 
 public class UserContext implements AutoCloseable{
     
-    static final ThreadLocal<User> current = new ThreadLocal<User>();
+    static final ThreadLocal<UserInfo> current = new ThreadLocal<UserInfo>();
     
-    public UserContext(User user) {
-        current.set(user);
+    public UserContext(UserInfo userInfo) {
+        current.set(userInfo);
     }
     
-    public static User getCurrentUser() {
+    public static UserInfo getCurrentUser() {
         return current.get();
     }
     

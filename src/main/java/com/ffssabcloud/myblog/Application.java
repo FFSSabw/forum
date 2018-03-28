@@ -26,7 +26,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 @MapperScan("com.ffssabcloud.myblog.domain.dao")
 @EnableTransactionManagement
 @SpringBootApplication
-@EnableCaching
 public class Application 
 {   
     @Bean(initMethod = "init", destroyMethod = "close")

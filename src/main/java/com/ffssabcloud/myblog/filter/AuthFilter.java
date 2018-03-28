@@ -19,15 +19,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 import com.ffssabcloud.myblog.domain.auth.User;
+import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.filter.authenticator.Authenticator;
 import com.ffssabcloud.myblog.filter.authenticator.LocalAuthenticator;
 import com.ffssabcloud.myblog.modal.UserContext;
 import com.ffssabcloud.myblog.service.UserService;
 import com.ffssabcloud.myblog.utils.Commons;
 
-@Order(1)
-@WebFilter(filterName = "authFilter")
-@Configuration
+//@Order(1)
+//@WebFilter(filterName = "authFilter")
+//@Configuration
 public class AuthFilter implements Filter{
      
     @Autowired
@@ -42,7 +43,7 @@ public class AuthFilter implements Filter{
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         
-        User user = tryGetAuthenticatedUser(request, response);
+        UserInfo user = tryGetAuthenticatedUser(request, response);
         
         try(UserContext context = new UserContext(user)) {
             chain.doFilter(request, response);
@@ -52,20 +53,20 @@ public class AuthFilter implements Filter{
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
     
-    public User tryGetAuthenticatedUser(ServletRequest request, ServletResponse response) {
-        User user = null;
+    public UserInfo tryGetAuthenticatedUser(ServletRequest request, ServletResponse response) {
+        UserInfo userInfo = null;
         
         if(authenticators == null) {
             authenticators = initAuthenticators();
         }
         
         for(Authenticator auth : authenticators) {
-            user = auth.authenticate((HttpServletRequest) request);          
-            if(user != null) {
+            userInfo = auth.authenticate((HttpServletRequest) request);          
+            if(userInfo != null) {
                 break;
             }
         }
-        return user;
+        return userInfo;
     }
     
     public ArrayList<Authenticator> initAuthenticators() {

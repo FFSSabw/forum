@@ -3,18 +3,25 @@ package com.ffssabcloud.myblog;
 import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ffssabcloud.myblog.domain.dao.UserRepository;
+import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.service.UserService;
 import com.ffssabcloud.myblog.utils.RedisUtils;
 import com.ffssabcloud.myblog.utils.WebUtils;
+import com.ffssabcloud.myblog.web.BaseController;
+
+import junit.framework.Assert;
 
 /**
  * Unit test for simple App.
@@ -24,33 +31,32 @@ import com.ffssabcloud.myblog.utils.WebUtils;
 public class DBTest {
     
     @Autowired
-    private CacheManager cacheManager;
+    private StringRedisTemplate stringRedisTemplate;
     
     @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private WebUtils webUtils;
-    
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private RedisUtils redisUtils;
+    private RedisTemplate redisTemplate;
+
+    @Test
+    public void test() throws Exception {
+        stringRedisTemplate.opsForValue().set("aaa", "111");
+        Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
+    }
     
     @Test
-    public void testDb() throws IllegalArgumentException, IllegalAccessException {
-//        String hashed = webUtils.hashWithSalt("123456");
-//        System.out.println(hashed);
-//        System.out.println(webUtils.hashVertify(hashed, "123456"));
-//        User user1 = userService.getUserByUsername("abc");
-//        System.out.println("first password:" + ((LocalAuth)user1.getAuth()).getPassword());
-//        User user2 = userService.getUserByUsername("abc");
-//        System.out.println("second password:" + ((LocalAuth)user2.getAuth()).getPassword());
-//        System.out.println(redisUtils.exists("\\xac\\xed\\x00\\x05t\\x00\\aredis__"));
-//        redisUtils.set("afsddslvn lxvkx", "fsdjklbfdsfnlksdaf");
-//        redisUtils.remove("a");
-         
-        
+    public void testObj() throws Exception {
+        User user=new User();
+        user.setUsername("abc");
+        ValueOperations<String, User> operations=redisTemplate.opsForValue();
+        operations.set("com.neox", user);
+        operations.set("com.neo.f", user,1,TimeUnit.SECONDS);
+        Thread.sleep(1000);
+        //redisTemplate.delete("com.neo.f");
+        boolean exists=redisTemplate.hasKey("com.neo.f");
+        if(exists){
+            System.out.println("exists is true");
+        }else{
+            System.out.println("exists is false");
+        }
+       // Assert.assertEquals("aa", operations.get("com.neo.f").getUserName());
     }
 }
