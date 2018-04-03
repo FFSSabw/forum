@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.auth.Auth;
 import com.ffssabcloud.myblog.domain.auth.Localauth;
 import com.ffssabcloud.myblog.domain.auth.LocalauthExample;
 import com.ffssabcloud.myblog.domain.auth.User;
@@ -21,7 +20,6 @@ import com.ffssabcloud.myblog.domain.dao.LocalauthMapper;
 import com.ffssabcloud.myblog.domain.dao.UserMapper;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.service.UserService;
-import com.ffssabcloud.myblog.utils.RedisUtils;
 import com.ffssabcloud.myblog.utils.WebUtils;
 
 @Service

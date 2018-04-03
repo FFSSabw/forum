@@ -24,26 +24,31 @@ public class TestController {
         
         return "test/test";
     }
+    @GetMapping(value = "/plain")
+    public String plain() throws Exception {
+        throw new Exception();
+    }
     
     @GetMapping(value = "/session")
     public String sessionTest(HttpSession session, Model model) {
         
         UserInfo u = (UserInfo)session.getAttribute("userInfo");
-        if(u == null) {
-            UserInfo userInfo = new UserInfo();
-            User user = new User();
-            user.setUsername("nihao");
-            user.setId(1);
-            user.setLocation("new york");
-            user.setRegisterby("LOCAL");
-            Localauth localauth = new Localauth();
-            localauth.setId(2);
-            localauth.setPassword("123456");
-            userInfo.setUser(user);
-            userInfo.setAuth(localauth);
-            session.setAttribute("userInfo", userInfo);
-        }
-        model.addAttribute("userInfo", u);
+        System.out.println(u);
+//        if(u == null) {
+//            UserInfo userInfo = new UserInfo();
+//            User user = new User();
+//            user.setUsername("nihao");
+//            user.setId(1);
+//            user.setLocation("new york");
+//            user.setRegisterby("LOCAL");
+//            Localauth localauth = new Localauth();
+//            localauth.setId(2);
+//            localauth.setPassword("123456");
+//            userInfo.setUser(user);
+//            userInfo.setAuth(localauth);
+//            session.setAttribute("userInfo", userInfo);
+//        }
+//        model.addAttribute("userInfo", u);
 
         
         return "test/test";

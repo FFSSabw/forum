@@ -1,50 +1,21 @@
 package com.ffssabcloud.myblog.domain;
 
+
 public class Comment {
-    
-    /**
-     * 评论Id
-     */
     private Integer id;
-    
-    /**
-     * 评论作者Id
-     */
-    private Integer authorId;
-    
-    /**
-     * 评论的文章Id
-     */
-    private Integer articleId;
-    
-    /**
-     * 评论的内容的Id
-     */
-    private Integer ownerId;
-    
-    /**
-     * 上级评论的Id
-     */
-    private Integer parentId;
-    
-    /**
-     * 评论楼层
-     */
-    private Integer floor;
-    
-    /**
-     * 评论类型
-     */
-    private String type;
-    
-    /**
-     * 创建时间
-     */
-    private Integer createAt;
-    
-    /**
-     * 内容
-     */
+
+    private String author;
+
+    private Integer authorid;
+
+    private Integer articleid;
+
+    private Integer replyid;
+
+    private String reply;
+
+    private Integer createat;
+
     private String content;
 
     public Integer getId() {
@@ -55,60 +26,52 @@ public class Comment {
         this.id = id;
     }
 
-    public Integer getAuthorId() {
-        return authorId;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+    public void setAuthor(String author) {
+        this.author = author == null ? null : author.trim();
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Integer getAuthorid() {
+        return authorid;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setAuthorid(Integer authorid) {
+        this.authorid = authorid;
     }
 
-    public Integer getOwnerId() {
-        return ownerId;
+    public Integer getArticleid() {
+        return articleid;
     }
 
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
+    public void setArticleid(Integer articleid) {
+        this.articleid = articleid;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Integer getReplyid() {
+        return replyid;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setReplyid(Integer replyid) {
+        this.replyid = replyid;
     }
 
-    public Integer getFloor() {
-        return floor;
+    public String getReply() {
+        return reply;
     }
 
-    public void setFloor(Integer floor) {
-        this.floor = floor;
+    public void setReply(String reply) {
+        this.reply = reply == null ? null : reply.trim();
     }
 
-    public String getType() {
-        return type;
+    public Integer getCreateat() {
+        return createat;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Integer getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Integer createAt) {
-        this.createAt = createAt;
+    public void setCreateat(Integer createat) {
+        this.createat = createat;
     }
 
     public String getContent() {
@@ -116,10 +79,6 @@ public class Comment {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
     }
-    
-    
-    
-    
 }

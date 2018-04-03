@@ -48,4 +48,13 @@ public interface Constrants {
         public static final int MAX_PAGE = 64;
         public static final String SESSION_USERINFO_NAME = "userInfo";
     }
+    
+    /**
+     * 文章
+     *
+     */
+    public static class Article {
+        public static final boolean PUBLISHED = true;
+        public static final boolean UNPUBLISHED = false;
+    }
 }

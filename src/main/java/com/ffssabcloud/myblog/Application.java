@@ -14,6 +14,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,8 +25,9 @@ import com.alibaba.druid.pool.DruidDataSource;
  *
  */
 @MapperScan("com.ffssabcloud.myblog.domain.dao")
-@EnableTransactionManagement
 @SpringBootApplication
+@EnableTransactionManagement
+@EnableAsync
 public class Application 
 {   
     @Bean(initMethod = "init", destroyMethod = "close")

@@ -1,122 +1,134 @@
 package com.ffssabcloud.myblog.domain;
 
+
 public class Article {
-    
-    /**
-     * 文章id
-     */
     private Integer id;
-    
-    /**
-     * 文章标题
-     */
+
+    private Integer authorid;
+
+    private String categories;
+
     private String title;
-    
-    /**
-     * 文章创建时间
-     */
-    private Integer createAt;
-    
-    /**
-     * 文章修改时间
-     */
-    private Integer modifyAt;
-    
-    /**
-     * 文章简述
-     */
+
+    private Integer createat;
+
+    private Integer modifyat;
+
     private String description;
-    
-    /**
-     * 文章主体
-     */
+
     private String content;
-    
-    /**
-     * 文章状态
-     */
+
     private Boolean status;
-    
-    /**
-     * 点击次数
-     */
+
     private Integer clicks;
-    
-    /**
-     * 标签列表
-     */
+
     private String tags;
-    
+
+    private Integer comments;
+
+    private Boolean allowcomment;
+
     public Integer getId() {
         return id;
     }
-    
+
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
+    public Integer getAuthorid() {
+        return authorid;
+    }
+
+    public void setAuthorid(Integer authorid) {
+        this.authorid = authorid;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories == null ? null : categories.trim();
+    }
+
     public String getTitle() {
         return title;
     }
-    
+
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
-    
-    public Integer getCreateAt() {
-        return createAt;
+
+    public Integer getCreateat() {
+        return createat;
     }
-    
-    public void setCreateAt(Integer createAt) {
-        this.createAt = createAt;
+
+    public void setCreateat(Integer createat) {
+        this.createat = createat;
     }
-    
-    public Integer getModifyAt() {
-        return modifyAt;
+
+    public Integer getModifyat() {
+        return modifyat;
     }
-    
-    public void setModifyAt(Integer modifyAt) {
-        this.modifyAt = modifyAt;
+
+    public void setModifyat(Integer modifyat) {
+        this.modifyat = modifyat;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
-    
+
     public String getContent() {
         return content;
     }
-    
+
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
     }
-    
+
     public Boolean getStatus() {
         return status;
     }
-    
+
     public void setStatus(Boolean status) {
         this.status = status;
     }
-    
+
     public Integer getClicks() {
         return clicks;
     }
-    
+
     public void setClicks(Integer clicks) {
         this.clicks = clicks;
     }
-    
+
     public String getTags() {
         return tags;
     }
-    
+
     public void setTags(String tags) {
-        this.tags = tags;
+        this.tags = tags == null ? null : tags.trim();
     }
-    
+
+    public Integer getComments() {
+        return comments;
+    }
+
+    public void setComments(Integer comments) {
+        this.comments = comments;
+    }
+
+    public Boolean getAllowcomment() {
+        return allowcomment;
+    }
+
+    public void setAllowcomment(Boolean allowcomment) {
+        this.allowcomment = allowcomment;
+    }
 }
