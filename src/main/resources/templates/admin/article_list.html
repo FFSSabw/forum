@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'My Blog '+*{title}?:' '"></title>
+    <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog-footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+    <div th:replace="navbar::header-nav"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="admin/sidebar::sidebar"></div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">文章管理</h1>
+                <div class="row placeholders">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>文章标题</th>
+                                <th>发布于</th>
+                                <th>修改于</th>
+                                <th>浏览数</th>
+                                <th>评论数</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="article:${pageInfo.list}">
+                                <td th:text="${article.id}"></td>
+                                <td th:text="${article.title}">Lorem</td>
+                                <td th:text="${commons.fmtUnixTime(article.createat)}">ipsum</td>
+                                <td th:text="${commons.fmtUnixTime(article.modifyat)}">ipsum</td>
+                                <td th:text="${article.clicks}">dolor</td>
+                                <td th:text="${article.comments}">sit</td>
+                                <td>
+                                    <a th:href="@{'/admin/article/'+${article.id}}">修改</a> &nbsp;
+                                    <a href="#">删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:replace="page::bottom-page"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

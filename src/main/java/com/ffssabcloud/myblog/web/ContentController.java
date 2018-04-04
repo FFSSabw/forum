@@ -66,6 +66,7 @@ public class ContentController extends BaseController{
                                         HttpServletResponse response,
                                         HttpSession session,
                                         @RequestParam int aid,
+                                        @RequestParam String atitle,
                                         @RequestParam String rid,
                                         @RequestParam String r,
                                         @RequestParam String _csrf_token,
@@ -92,6 +93,7 @@ public class ContentController extends BaseController{
         
         Comment comment = new Comment();
         comment.setArticleid(aid);
+        comment.setArticletitle(atitle);
         comment.setAuthor(userInfo.getUser().getUsername());
         comment.setAuthorid(userInfo.getUser().getId());
         comment.setContent(text);

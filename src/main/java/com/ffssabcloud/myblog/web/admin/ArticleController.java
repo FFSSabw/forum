@@ -2,6 +2,7 @@ package com.ffssabcloud.myblog.web.admin;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,22 +18,28 @@ import com.ffssabcloud.myblog.service.ArticleService;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value = "/admin/article")
+@RequestMapping(value = "/admin/articles")
 public class ArticleController {
     
     @Autowired
     ArticleService articleService;
     
+    @GetMapping(value = "")
+    public String getArticles(HttpServletRequest request,
+                                @RequestParam(value = "limit", defaultValue = "12") int limit) {
+        return this.getArticles(request, 1, limit);
+    }
+    
     @GetMapping(value = "/page/{page}")
     public String getArticles(HttpServletRequest request,
                                 @PathVariable int page,
                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
-        String uri = request.getRequestURI();
+
         page = page < 0 || page > Constrants.Web.MAX_PAGE ? 1 : page;
         PageInfo<Article> pageInfo = articleService.getArticles(page, limit);
         
         request.setAttribute("pageInfo", pageInfo);
-        request.setAttribute("pageUri", uri);
+        request.setAttribute("pageUri", "/admin/articles/page/");
         
         return "admin/article_list";
     }

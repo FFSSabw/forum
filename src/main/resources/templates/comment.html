@@ -13,9 +13,11 @@
             <div th:if="${article.allowcomment} and ${userInfo ne null}">
                 <form method="post" id="comment-form" role="form" 
                     onsubmit="return subComment()">
+                    <input type="hidden" name="aid" th:value="${article.id}">
+                    <input type="hidden" name="atitle" th:value="${article.title}">
                     <input type="hidden" name="rid">
                     <input type="hidden" name="r">
-                    <input type="hidden" name="aid" th:value="${article.id}">
+                    
                     <input type="hidden" name="_csrf_token" th:value="${_csrf_token}">
                     <textarea name="text" id="textarea" class="form-control" placeholder="请输入评论" required="required" maxlength="2056" rows="5"></textarea>
                     <div class="btn-comment">

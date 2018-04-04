@@ -3,6 +3,7 @@ package com.ffssabcloud.myblog.service.imple;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.ffssabcloud.myblog.domain.Meta;
 import com.ffssabcloud.myblog.domain.MetaExample;
 import com.ffssabcloud.myblog.domain.dao.ArticleMapper;
 import com.ffssabcloud.myblog.domain.dao.MetaMapper;
+import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.service.SiteService;
 import com.ffssabcloud.myblog.utils.DateUtils;
 
@@ -25,6 +27,33 @@ public class SiteServiceImp implements SiteService{
     
     @Autowired
     MetaMapper metaMapper;
+    
+    @Override
+    public List<Meta> getMetas(String type) {
+        MetaExample example = new MetaExample();
+        example.createCriteria().andTypeEqualTo(type);
+        List<Meta> metas = metaMapper.selectByExample(example);
+        
+        return metas;
+    }
+
+    @Override
+    public void setMeta(String type, String name) {
+        if(StringUtils.isBlank(name)) {
+            throw new PromptException("类别名不能为空!");
+        }
+        if(checkMetaExist(name)) {
+            throw new PromptException("类别名已存在!");
+        }
+        
+        Meta meta = new Meta();
+        meta.setCount(0);
+        meta.setName(name);
+        meta.setType(type);
+        
+        metaMapper.insert(meta);
+ 
+    }
     
     @Override
     public List<Archive> getArchives() {
@@ -54,12 +83,15 @@ public class SiteServiceImp implements SiteService{
     }
 
     @Override
-    public List<Meta> getMetas(String type) {
+    public boolean checkMetaExist(String name) {
         MetaExample example = new MetaExample();
-        example.createCriteria().andTypeEqualTo(type);
-        List<Meta> metas = metaMapper.selectByExample(example);
+        example.createCriteria().andNameEqualTo(name);
         
-        return metas;
+        if(metaMapper.countByExample(example) == 0) {
+            return false;
+        }
+        
+        return true;
     }
 
 }

@@ -56,6 +56,7 @@ CREATE TABLE Comment (
     author VARCHAR(64) NOT NULL,
     authorId INT UNSIGNED not null,
     articleId INT UNSIGNED not null,
+    articleTitle VARCHAR(128) not null,
     replyId INT UNSIGNED,
     reply VARCHAR(64),
     createAt INT UNSIGNED not null,

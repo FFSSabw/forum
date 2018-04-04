@@ -63,13 +63,7 @@ public class CommentExample {
         distinct = false;
     }
 
-    /**
-     * 
-     * 
-     * @author wcyong
-     * 
-     * @date 2018-03-31
-     */
+
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -361,6 +355,76 @@ public class CommentExample {
             return (Criteria) this;
         }
 
+        public Criteria andArticletitleIsNull() {
+            addCriterion("articleTitle is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleIsNotNull() {
+            addCriterion("articleTitle is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleEqualTo(String value) {
+            addCriterion("articleTitle =", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleNotEqualTo(String value) {
+            addCriterion("articleTitle <>", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleGreaterThan(String value) {
+            addCriterion("articleTitle >", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleGreaterThanOrEqualTo(String value) {
+            addCriterion("articleTitle >=", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleLessThan(String value) {
+            addCriterion("articleTitle <", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleLessThanOrEqualTo(String value) {
+            addCriterion("articleTitle <=", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleLike(String value) {
+            addCriterion("articleTitle like", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleNotLike(String value) {
+            addCriterion("articleTitle not like", value, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleIn(List<String> values) {
+            addCriterion("articleTitle in", values, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleNotIn(List<String> values) {
+            addCriterion("articleTitle not in", values, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleBetween(String value1, String value2) {
+            addCriterion("articleTitle between", value1, value2, "articletitle");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticletitleNotBetween(String value1, String value2) {
+            addCriterion("articleTitle not between", value1, value2, "articletitle");
+            return (Criteria) this;
+        }
+
         public Criteria andReplyidIsNull() {
             addCriterion("replyId is null");
             return (Criteria) this;
@@ -629,13 +693,7 @@ public class CommentExample {
         }
     }
 
-    /**
-     * 
-     * 
-     * @author wcyong
-     * 
-     * @date 2018-03-31
-     */
+
     public static class Criterion {
         private String condition;
 

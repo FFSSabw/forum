@@ -4,9 +4,7 @@ import com.ffssabcloud.myblog.domain.Comment;
 import com.ffssabcloud.myblog.domain.CommentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface CommentMapper {
     int countByExample(CommentExample example);
 

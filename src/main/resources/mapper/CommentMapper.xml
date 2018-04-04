@@ -7,6 +7,7 @@
         <result column="author" property="author" jdbcType="VARCHAR" />
         <result column="authorId" property="authorid" jdbcType="INTEGER" />
         <result column="articleId" property="articleid" jdbcType="INTEGER" />
+        <result column="articleTitle" property="articletitle" jdbcType="VARCHAR" />
         <result column="replyId" property="replyid" jdbcType="INTEGER" />
         <result column="reply" property="reply" jdbcType="VARCHAR" />
         <result column="createAt" property="createat" jdbcType="INTEGER" />
@@ -74,7 +75,7 @@
     </sql>
 
     <sql id="Base_Column_List" >
-        id, author, authorId, articleId, replyId, reply, createAt, content
+        id, author, authorId, articleId, articleTitle, replyId, reply, createAt, content
     </sql>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ffssabcloud.myblog.domain.CommentExample" >
@@ -113,11 +114,13 @@
 
     <insert id="insert" parameterType="com.ffssabcloud.myblog.domain.Comment" >
         insert into Comment (id, author, authorId, 
-            articleId, replyId, reply, 
-            createAt, content)
+            articleId, articleTitle, replyId, 
+            reply, createAt, content
+            )
         values (#{id,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{authorid,jdbcType=INTEGER}, 
-            #{articleid,jdbcType=INTEGER}, #{replyid,jdbcType=INTEGER}, #{reply,jdbcType=VARCHAR}, 
-            #{createat,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+            #{articleid,jdbcType=INTEGER}, #{articletitle,jdbcType=VARCHAR}, #{replyid,jdbcType=INTEGER}, 
+            #{reply,jdbcType=VARCHAR}, #{createat,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+            )
     </insert>
 
     <insert id="insertSelective" parameterType="com.ffssabcloud.myblog.domain.Comment" >
@@ -134,6 +137,9 @@
             </if>
             <if test="articleid != null" >
                 articleId,
+            </if>
+            <if test="articletitle != null" >
+                articleTitle,
             </if>
             <if test="replyid != null" >
                 replyId,
@@ -160,6 +166,9 @@
             </if>
             <if test="articleid != null" >
                 #{articleid,jdbcType=INTEGER},
+            </if>
+            <if test="articletitle != null" >
+                #{articletitle,jdbcType=VARCHAR},
             </if>
             <if test="replyid != null" >
                 #{replyid,jdbcType=INTEGER},
@@ -198,6 +207,9 @@
             <if test="record.articleid != null" >
                 articleId = #{record.articleid,jdbcType=INTEGER},
             </if>
+            <if test="record.articletitle != null" >
+                articleTitle = #{record.articletitle,jdbcType=VARCHAR},
+            </if>
             <if test="record.replyid != null" >
                 replyId = #{record.replyid,jdbcType=INTEGER},
             </if>
@@ -222,6 +234,7 @@
             author = #{record.author,jdbcType=VARCHAR},
             authorId = #{record.authorid,jdbcType=INTEGER},
             articleId = #{record.articleid,jdbcType=INTEGER},
+            articleTitle = #{record.articletitle,jdbcType=VARCHAR},
             replyId = #{record.replyid,jdbcType=INTEGER},
             reply = #{record.reply,jdbcType=VARCHAR},
             createAt = #{record.createat,jdbcType=INTEGER},
@@ -242,6 +255,9 @@
             </if>
             <if test="articleid != null" >
                 articleId = #{articleid,jdbcType=INTEGER},
+            </if>
+            <if test="articletitle != null" >
+                articleTitle = #{articletitle,jdbcType=VARCHAR},
             </if>
             <if test="replyid != null" >
                 replyId = #{replyid,jdbcType=INTEGER},
@@ -264,6 +280,7 @@
         set author = #{author,jdbcType=VARCHAR},
             authorId = #{authorid,jdbcType=INTEGER},
             articleId = #{articleid,jdbcType=INTEGER},
+            articleTitle = #{articletitle,jdbcType=VARCHAR},
             replyId = #{replyid,jdbcType=INTEGER},
             reply = #{reply,jdbcType=VARCHAR},
             createAt = #{createat,jdbcType=INTEGER},

@@ -1,6 +1,5 @@
 package com.ffssabcloud.myblog.domain;
 
-
 public class Comment {
     private Integer id;
 
@@ -9,6 +8,8 @@ public class Comment {
     private Integer authorid;
 
     private Integer articleid;
+
+    private String articletitle;
 
     private Integer replyid;
 
@@ -48,6 +49,14 @@ public class Comment {
 
     public void setArticleid(Integer articleid) {
         this.articleid = articleid;
+    }
+
+    public String getArticletitle() {
+        return articletitle;
+    }
+
+    public void setArticletitle(String articletitle) {
+        this.articletitle = articletitle == null ? null : articletitle.trim();
     }
 
     public Integer getReplyid() {

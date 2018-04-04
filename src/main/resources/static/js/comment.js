@@ -28,6 +28,3 @@ function subComment() {
     });
     return false;
 }
-function test() {
-    console.log('hhh')
-}

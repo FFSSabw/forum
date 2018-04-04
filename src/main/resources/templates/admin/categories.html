@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'My Blog '+*{title}?:' '"></title>
+    <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog-footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+    <div th:replace="navbar::header-nav"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="admin/sidebar::sidebar"></div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">分类管理</h1>
+                <div class="row placeholders">
+                    添加分类:
+                    <div>
+                        <form method="post" id="categories-form" role="form" 
+                    onsubmit="return add_categories()" class="form-inline">
+                            <input type="text" name="cg" class="form-control">
+                            <button class="btn btn-primary" type="submit">添加</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row placeholders">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>类别</th>
+                                    <th>文章数</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cate:${categories}">
+                                    <td th:text="${cate.id}">id</td>
+                                    <td th:text="${cate.name}">Lorem</td>
+                                    <td th:text="${cate.count}">ipsum</td>
+                                    <td>
+                                        <a href="#">修改</a> &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script type="text/javascript">
+    function add_categories() {
+        $.ajax({
+            type: 'post',
+            url: '/admin/categories',
+            data: $('#categories-form').serialize(),
+            async: false,
+            dataType: 'json',
+            success: function(result) {
+            if (result && result.success) {
+                alert(result.msg);
+                window.location.reload()
+                
+            } else {
+                if (result.msg) {
+                    alert(result.msg);
+                }
+            }
+        }
+        });
+        return false;
+    }
+    </script>
+</body>
+
+</html>

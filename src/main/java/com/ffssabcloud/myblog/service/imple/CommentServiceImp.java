@@ -19,6 +19,11 @@ public class CommentServiceImp implements CommentService{
     CommentMapper commentMapper;
     
     @Override
+    public List<Comment> getComments() {
+        return commentMapper.selectByExample(new CommentExample());
+    }
+    
+    @Override
     public List<Comment> getComments(int articleId) {
         CommentExample example = new CommentExample();
         example.setOrderByClause("createAt desc");
