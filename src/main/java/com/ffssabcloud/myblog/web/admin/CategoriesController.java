@@ -1,6 +1,7 @@
 package com.ffssabcloud.myblog.web.admin;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,34 @@ import com.ffssabcloud.myblog.domain.Meta;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.SiteService;
-import com.ffssabcloud.myblog.web.BaseController;
-import com.github.pagehelper.PageHelper;
 
 @Controller
-@RequestMapping(value = "/admin")
-public class AdminController extends BaseController{
+@RequestMapping(value = "/admin/categories")
+public class CategoriesController {
     
     @Autowired
     SiteService siteService;
     
     @GetMapping(value = "")
-    public String index() {
-        return this.overview();
+    public String categories(HttpServletRequest request) {
+        List<Meta> metas = siteService.getMetas(Constrants.Types.CATEGORIES);
+        request.setAttribute("categories", metas);
+        
+        return "admin/categories";
     }
     
-    @GetMapping(value = "/overview")
-    public String overview() {
-        return "admin/index";
+    @PostMapping(value = "")
+    @ResponseBody
+    public RestResponseBo categories(HttpServletRequest request,
+                                        @RequestParam String cg) {
+        try {
+            siteService.setMeta(Constrants.Types.CATEGORIES, cg);
+        } catch(Exception e) {
+            if(e instanceof PromptException) {
+                return RestResponseBo.fail(e.getMessage());
+            }
+        }
+        
+        return RestResponseBo.ok("添加类别成功!");
     }
-    
-    
-    
-    
 }
