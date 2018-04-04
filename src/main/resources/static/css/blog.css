@@ -1,0 +1,148 @@
+.article-list-wrap {
+    margin-bottom: 60px;
+}
+
+.article-media {
+    margin-top: 20px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1000px;
+    }
+}
+
+.blog-nav-container {
+    -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+}
+
+.blog-nav-item {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+.blog-nav-item a {
+    color: #cdddeb;
+    font-weight: 500;
+}
+
+.blog-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.blog-title {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-size: 60px;
+  font-weight: normal;
+}
+.blog-description {
+  font-size: 20px;
+  color: #999;
+  margin-top: 16px;
+}
+
+.nav-float-right {
+    float: right;
+}
+
+.blog-nav-item:hover,
+.blog-nav-item:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.blog-nav .active {
+    color: #fff;
+}
+
+.blog-nav .active:after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -5px;
+    vertical-align: middle;
+    content: " ";
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid;
+    border-left: 5px solid transparent;
+}
+/*article*/
+
+.article-main {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.btn-comment {
+	margin-top: 10px;
+	float: right;
+}
+/*comment*/
+.comments-wrap {
+	margin-top: 60px;
+	margin-bottom: 50px;
+}
+.reply {
+	float: right;
+	color: #5CACEE;
+}
+.reply:hover {
+    cursor: pointer;
+}
+/*archives*/
+.archives-wrap {
+	margin-top : 50px;
+}
+/* 下拉按钮样式 */
+
+.dropbtn {
+    font-size: 16px;
+}
+
+
+/* 下拉内容 (默认隐藏) */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+}
+
+
+/* 下拉菜单的链接 */
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+
+/* 在鼠标移上去后显示下拉菜单 */
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}

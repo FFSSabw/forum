@@ -10,7 +10,10 @@ import com.ffssabcloud.myblog.domain.Archive;
 import com.ffssabcloud.myblog.domain.Article;
 import com.ffssabcloud.myblog.domain.ArticleExample;
 import com.ffssabcloud.myblog.domain.ArticleExample.Criteria;
+import com.ffssabcloud.myblog.domain.Meta;
+import com.ffssabcloud.myblog.domain.MetaExample;
 import com.ffssabcloud.myblog.domain.dao.ArticleMapper;
+import com.ffssabcloud.myblog.domain.dao.MetaMapper;
 import com.ffssabcloud.myblog.service.SiteService;
 import com.ffssabcloud.myblog.utils.DateUtils;
 
@@ -19,6 +22,9 @@ public class SiteServiceImp implements SiteService{
     
     @Autowired
     ArticleMapper articleMapper;
+    
+    @Autowired
+    MetaMapper metaMapper;
     
     @Override
     public List<Archive> getArchives() {
@@ -45,6 +51,15 @@ public class SiteServiceImp implements SiteService{
     @Override
     public List<Archive> getArchivesWithoutArticles() {
         return articleMapper.selectArchives();
+    }
+
+    @Override
+    public List<Meta> getMetas(String type) {
+        MetaExample example = new MetaExample();
+        example.createCriteria().andTypeEqualTo(type);
+        List<Meta> metas = metaMapper.selectByExample(example);
+        
+        return metas;
     }
 
 }

@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/plugin/tagsinput/jquery.tagsinput.css}">
 </head>
 <body>
-    <h1>Here is Test</h1>
-    <div th:if="${userInfo==null}">
-        <p>尚未登录</p>
-        <a th:href="@{/login}" th:text="点击此处登录"></a>
-    </div>
-    <div th:if="${userInfo!=null}">
-        <h2 th:text="${userInfo.user.username}">用户名</h2>
-        <h2 th:text="${userInfo.user.id}">用户名</h2>
-        <h2 th:text="${userInfo.auth.password}">简述</h2>
-        <h2 th:text="${userInfo.auth.roleid}">简述</h2>
-    </div>
+    <input name="tags" id="tags" value="foo,bar,baz" />
 </body>
+<script th:src="@{/plugin/tagsinput/jquery.tagsinput.min.js}"></script>
+<script type="text/javascript">
+    $('#tags').tagsInput();
+</script>
 </html>

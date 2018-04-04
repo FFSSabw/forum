@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head>   
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="'My Blog '+*{title}?:' '"></title>
     <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
     <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
@@ -9,11 +11,16 @@
     <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/blog-footer.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/blog.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
 </head>
 <body>
     <div th:replace="navbar::header-nav"></div>
-    <div th:replace="header::header"></div>
-    <div th:replace="article_list::article-list"></div>
-    <div th:replace="footer::bottom-footer"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div th:replace="admin/sidebar::sidebar"></div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        </div>
+      </div>
+    </div>
 </body>
 </html>

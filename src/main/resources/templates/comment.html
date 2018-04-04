@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div th:fragment="comment">
+        <div class="comment-wrap">
+            <div th:if="${!article.allowcomment}">
+                <h3>该文章已关闭评论</h3>
+            </div>
+            <div th:if="${article.allowcomment} and ${userInfo eq null}">
+                <h3>需要登录才可以评论,<a th:href="@{/signin}">点击此处登录.</a></h3>
+            </div>
+            <div th:if="${article.allowcomment} and ${userInfo ne null}">
+                <form method="post" id="comment-form" role="form" 
+                    onsubmit="return subComment()">
+                    <input type="hidden" name="rid">
+                    <input type="hidden" name="r">
+                    <input type="hidden" name="aid" th:value="${article.id}">
+                    <input type="hidden" name="_csrf_token" th:value="${_csrf_token}">
+                    <textarea name="text" id="textarea" class="form-control" placeholder="请输入评论" required="required" maxlength="2056" rows="5"></textarea>
+                    <div class="btn-comment">
+                        <button class="btn btn-default" type="submit">提交</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <div class="comments-wrap">
+            <div class="media media-comment" th:each="comment:${comments}">
+                <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" th:src="@{/image/avatar/default.jpg}" 
+                      alt="..." height="60" width="60">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${comment.author}"></h4>
+                    <span th:text="${commons.fmtUnixTime(comment.createat, 'yyyy-MM-dd hh:mm')}"></span>
+                    <br> 
+                    <span th:if="${comment.reply}">回复：#</span>
+                    <span th:text="${comment.reply}"></span>
+                    <p th:text="${comment.content}"></p>
+                    <span class="reply" th:onclick="'javascript:reply(\''+${comment.authorid}+'\',\''+${comment.author}+'\');'">回复</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

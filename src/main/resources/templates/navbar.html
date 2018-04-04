@@ -4,18 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <title>主页</title>
+
+</style>
 </head>
 
 <body>
     <div class="blog-nav-container" th:style="'background:url(/image/background/5.png);no-repeat; background-size: cover;'" th:fragment="header-nav">
         <div class="container">
             <nav class="blog-nav">
-                <a class="blog-nav-item active" th:href="@{/}">Home</a>
-                <a class="blog-nav-item" href="#">Articles</a>
-                <a class="blog-nav-item" href="#">Press</a>
-                <a class="blog-nav-item" href="#">New hires</a>
-                <a class="blog-nav-item" href="#">About</a>
-                <a class="blog-nav-item nav-float-right" th:href="@{/signin}" th:if="${user == null}">Sign In</a>
+                <div class="blog-nav-item"><a th:href="@{/}">Home</a></div>
+                <div class="blog-nav-item"><a th:href="@{/archives}">archives</a></div>
+                <div class="blog-nav-item"><a href="#">About</a></div>
+                <div class="dropdown blog-nav-item">
+                    <a>分类</a>
+                    <div class="dropdown-content">
+                        <a th:href="@{'/categories/'+${cate.name}}" 
+                        th:each="cate:${categories}" 
+                        th:text="${cate.name}"></a>
+                    </div>
+                </div>
+                <div class="blog-nav-item nav-float-right"><a th:if="${userInfo} eq null" th:href="@{/signin}">Sign In</a></div>
+                <!-- <div class="blog-nav-item nav-float-right"><a th:if="${userInfo} ne null" th:href="@{/signin}">用户名</a></div> -->
+                <div class="dropdown blog-nav-item nav-float-right" th:if="${userInfo} ne null">
+                    <a th:text="${userInfo.user.username}">用户名</a>
+                    <div class="dropdown-content">
+                        <a th:href="@{/signout}">登出</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </div>

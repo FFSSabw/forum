@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.auth.Localauth;
 import com.ffssabcloud.myblog.domain.auth.UserInfo;
-import com.ffssabcloud.myblog.service.MetaService;
+import com.ffssabcloud.myblog.service.SiteService;
 import com.ffssabcloud.myblog.utils.Commons;
 
 @Component
@@ -23,7 +23,7 @@ public class BaseInterceptor implements HandlerInterceptor{
     Commons commons;
     
     @Autowired
-    MetaService metaService;
+    SiteService siteService;
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -32,8 +32,8 @@ public class BaseInterceptor implements HandlerInterceptor{
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
 
-        if(uri.startsWith("/admin") && 
-                !(((Localauth)userInfo.getAuth()).getRoleid().equals(Constrants.Roles.ADMIN))) {
+        if(uri.startsWith("/admin") && (userInfo == null || 
+                !(Constrants.Roles.ADMIN.equals(((Localauth)userInfo.getAuth()).getRoleid())))) {
             response.sendRedirect("/");
             return false;
         }
@@ -50,9 +50,8 @@ public class BaseInterceptor implements HandlerInterceptor{
             Object o, ModelAndView modelAndView) throws Exception {
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
-        System.out.println(userInfo);
         request.setAttribute("commons", commons);
-        request.setAttribute("categories", metaService.getCategories());
+        request.setAttribute("categories", siteService.getMetas(Constrants.Types.CATEGORIES));
         request.setAttribute("userInfo", userInfo);
     }
 }

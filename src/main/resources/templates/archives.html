@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title th:text="'My Blog '+*{title}?:' '"></title>
+    <title>archives</title>
     <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
     <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
@@ -10,10 +11,25 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/blog-footer.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/blog.css}">
 </head>
+
 <body>
     <div th:replace="navbar::header-nav"></div>
-    <div th:replace="header::header"></div>
-    <div th:replace="article_list::article-list"></div>
+    <div class="container archives-wrap">
+        <div th:each="archive:${archives}">
+            <div th:id="${archive.date}">
+                <p th:text="${archive.date}"></p>
+            </div>
+            <div class="list-group" th:each="article:${archive.articles}">
+                <a th:href="@{'/articles/'+${article.id}}" class="list-group-item">
+                    <h4 class="list-group-item-heading" th:text="${article.title}"></h4>
+                    发布于:
+                    <span th:text="${commons.fmtUnixTime(article.createat)}"></span>
+                    <p class="list-group-item-text" th:text="${article.description}"></p>
+                </a>
+            </div>
+        </div>
+    </div>
     <div th:replace="footer::bottom-footer"></div>
 </body>
+
 </html>

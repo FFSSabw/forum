@@ -24,9 +24,9 @@ public interface Constrants {
      *
      */
     public static class Roles {
-        public static final int UNAUTH = 0;
-        public static final int AUTHED = 1;
-        public static final int ADMIN = 2;
+        public static final Integer UNAUTH = 0;
+        public static final Integer AUTHED = 1;
+        public static final Integer ADMIN = 2;
     }
     
     /**
@@ -56,5 +56,10 @@ public interface Constrants {
     public static class Article {
         public static final boolean PUBLISHED = true;
         public static final boolean UNPUBLISHED = false;
+    }
+    
+    public static class Types {
+        public static final String CATEGORIES = "categories";
+        public static final String Tag = "tag";
     }
 }

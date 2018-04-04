@@ -25,15 +25,40 @@ CREATE TABLE Role (
     PRIMARY KEY(id)
 )ENGINE=InnoDB;
 
--- CREATE TABLE Article (
---     id INT UNSIGNED AUTO_INCREMENT,
---     title VARCHAR(128) NOT NULL,
---     createAt INT UNSIGNEDNOT NULL,
---     modifyAt INT UNSIGNEDNOT NULL,
---     description TEXT NOT NULL,
---     content TEXT NOT NULL,
---     status BOOLEAN NOT NULL,
---     clicks INT UNSIGNED NOT NULL,
---     tags VARCHAR(256),
---     PRIMARY KEY(id)
--- )ENGINE=InnoDB;
+CREATE TABLE Article (
+    id INT UNSIGNED AUTO_INCREMENT,
+    authorId INT UNSIGNED not null,
+    categories VARCHAR(64) NOT NULL,
+    title VARCHAR(128) NOT NULL,
+    createAt INT UNSIGNED NOT NULL,
+    modifyAt INT UNSIGNED NOT NULL,
+    description TEXT NOT NULL,
+    content TEXT NOT NULL,
+    status BOOLEAN NOT NULL,
+    clicks INT UNSIGNED NOT NULL,
+    tags VARCHAR(256),
+    comments INT UNSIGNED NOT NULL DEFAULT 0,
+    allowComment BOOLEAN,
+
+    PRIMARY KEY(id)
+)ENGINE=InnoDB;
+
+CREATE TABLE Meta (
+    id INT UNSIGNED AUTO_INCREMENT,
+    name VARCHAR(64) NOT NULL UNIQUE,
+    type VARCHAR(64) NOT NULL,
+    count INT,
+    PRIMARY KEY(id)
+)ENGINE=InnoDB;
+
+CREATE TABLE Comment (
+    id INT UNSIGNED AUTO_INCREMENT,
+    author VARCHAR(64) NOT NULL,
+    authorId INT UNSIGNED not null,
+    articleId INT UNSIGNED not null,
+    replyId INT UNSIGNED,
+    reply VARCHAR(64),
+    createAt INT UNSIGNED not null,
+    content TEXT not null,
+    PRIMARY KEY(id)
+)ENGINE=InnoDB;

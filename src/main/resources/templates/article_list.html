@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
-    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/blog-navbar.css}">
-</head>
 <body>
-    <div th:replace="navbar::header-nav"></div>
-    <h1>Hello World</h1>
+    <div th:fragment="article-list" class="container article-list-wrap">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="media article-media" th:each="article:${pageInfo.list}">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a th:href="@{'/articles/'+${article.id}}" th:text="${article.title}"></a>
+                        </h4>
+                        <span th:text="${commons.fmtUnixTime(article.createat)}"></span>/
+                        <span th:text="${article.categories}"></span><br>
+                        <span class="label label-primary" 
+                            th:each="tag:${#strings.arraySplit(article.tags,',')}" 
+                            th:text="${tag}"
+                            th:style="'margin-right: 5px'"> 
+                        </span>
+                        <p th:text="${article.description}"></p>
+                    </div>
+                </div>
+                <div th:if="${pageInfo.total} eq 0">
+                    <h1>博主很懒，什么都没写</h1>
+                </div>
+                <div th:replace="page::bottom-page"></div>
+            </div>
+            <div th:replace="sidebar::sidebar"></div>
+        </div>
+    </div>
 </body>
 </html>
