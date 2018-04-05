@@ -11,4 +11,6 @@ public interface ArticleService {
     public void addCommentNum(int articleId);
     public void updateArticleClicks(Integer articleId, Integer clicks);
     public PageInfo<Article> getArticles(String keyword, int page, int limit);
+    public void deleteArticle(int articleId);
+    public boolean checkExist(int articleId);
 }

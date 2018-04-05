@@ -12,6 +12,7 @@ import com.ffssabcloud.myblog.domain.ArticleExample;
 import com.ffssabcloud.myblog.domain.ArticleExample.Criteria;
 import com.ffssabcloud.myblog.domain.dao.ArticleMapper;
 import com.ffssabcloud.myblog.exception.NotFoundException;
+import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -86,6 +87,22 @@ public class ArticleServiceImp implements ArticleService{
         temp.setClicks(clicks + 1);
         articleMapper.updateByPrimaryKeySelective(temp);
         
+    }
+
+    @Override
+    public void deleteArticle(int articleId) {
+        if(!checkExist(articleId)) {
+            throw new PromptException("文章不存在!");
+        }
+        articleMapper.deleteByPrimaryKey(articleId);
+    }
+
+    @Override
+    public boolean checkExist(int articleId) {
+        if(articleMapper.selectByPrimaryKey(articleId) == null) {
+            return false;
+        }
+        return true;
     }
 
 }

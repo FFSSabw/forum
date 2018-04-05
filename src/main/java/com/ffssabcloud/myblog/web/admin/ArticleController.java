@@ -5,14 +5,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.Article;
+import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.ArticleService;
 import com.github.pagehelper.PageInfo;
@@ -62,6 +65,19 @@ public class ArticleController {
     
     @PostMapping(value = "/modify")
     public RestResponseBo modifyArticle() {
+        return RestResponseBo.ok();
+    }
+    
+    @DeleteMapping(value = "/{aid}")
+    @ResponseBody
+    public RestResponseBo deleteArticle(@PathVariable int aid) {
+        try {
+            articleService.deleteArticle(aid);
+        } catch(Exception e) {
+            if(e instanceof PromptException) {
+                return RestResponseBo.fail(e.getMessage());
+            }
+        }
         return RestResponseBo.ok();
     }
 }

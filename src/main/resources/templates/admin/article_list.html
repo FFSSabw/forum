@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,7 +47,7 @@
                                 <td th:text="${article.comments}">sit</td>
                                 <td>
                                     <a th:href="@{'/admin/article/'+${article.id}}">修改</a> &nbsp;
-                                    <a href="#">删除</a>
+                                    <a href="#" th:onclick="'javascript:delete_article(\''+${article.id}+'\');'">删除</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -56,6 +57,51 @@
             </div>
         </div>
     </div>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script type="text/javascript">
+    function delete_article(article_id) {
+        // if (confirm('确认要删除文章?') == true) {
+        //     $.ajax({
+        //         type: 'DELETE',
+        //         url: '/admin/articles',
+        //         data: JSON.stringify({aid: article_id}),
+        //         async: false,
+        //         dataType: 'json',
+        //         contentType: "application/json",
+        //         success: function(result) {
+        //             if (result && result.success) {
+        //                 alert("删除成功");
+        //                 window.location.reload()
+
+        //             } else {
+        //                 if (result.msg) {
+        //                     alert(result.msg);
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
+        if (confirm('确认要删除文章?') == true) {
+            $.ajax({
+                type: 'delete',
+                url: '/admin/articles/'+article_id,
+                async: false,
+                dataType: 'json',
+                success: function(result) {
+                    if (result && result.success) {
+                        alert("删除成功");
+                        window.location.reload()
+
+                    } else {
+                        if (result.msg) {
+                            alert(result.msg);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    </script>
 </body>
 
 </html>
