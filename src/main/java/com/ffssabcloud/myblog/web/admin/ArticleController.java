@@ -67,13 +67,15 @@ public class ArticleController {
     @PostMapping(value = "/article")
     @ResponseBody
     public RestResponseBo postArticle(HttpSession session,
+                                            @RequestParam Integer aid,
                                             @RequestParam String title,
                                             @RequestParam String tags,
                                             @RequestParam String categories,
                                             @RequestParam boolean allowcomment,
                                             @RequestParam boolean publish,
                                             @RequestParam String description,
-                                            @RequestParam String content) {
+                                            @RequestParam String content,
+                                            @RequestParam(value = "isModify", defaultValue = "false") boolean isModify) {
         UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
         
         if(StringUtils.isBlank(title)) {
@@ -87,6 +89,14 @@ public class ArticleController {
         }
         
         Article article = new Article();
+        if(isModify) {
+            article.setId(aid);
+        } else {
+            article.setCreateat(DateUtils.getUnixTime());
+            article.setAuthorid(userInfo.getUser().getId());
+            article.setClicks(0);
+            article.setComments(0);
+        }
         article.setTitle(title);
         article.setTags(tags);
         article.setCategories(categories);
@@ -94,16 +104,18 @@ public class ArticleController {
         article.setStatus(publish);
         article.setDescription(description);
         article.setContent(content);
-        article.setCreateat(DateUtils.getUnixTime());
-        article.setModifyat(DateUtils.getUnixTime());
-        article.setAuthorid(userInfo.getUser().getId());
-        article.setClicks(0);
-        article.setComments(0);
+        article.setModifyat(DateUtils.getUnixTime());  
+        
         
         String[] tagsList = tags.split(",");
         
         try {
-            articleService.addArticle(article);
+            if(isModify) {
+                articleService.updateArticle(article);
+            } else {
+                articleService.addArticle(article);
+            }
+            
             siteService.setMetas(Constrants.Types.TAG, tagsList);
         } catch(Exception e) {
             e.printStackTrace();
@@ -135,8 +147,16 @@ public class ArticleController {
     
     @PutMapping(value = "/articles/{articleId}")
     @ResponseBody
-    public RestResponseBo editArticle(HttpServletRequest request) {
-        return RestResponseBo.ok();
+    public RestResponseBo editArticle(HttpSession session,
+                                            @RequestParam Integer aid,
+                                            @RequestParam String title,
+                                            @RequestParam String tags,
+                                            @RequestParam String categories,
+                                            @RequestParam boolean allowcomment,
+                                            @RequestParam boolean publish,
+                                            @RequestParam String description,
+                                            @RequestParam String content) {
+        return this.postArticle(session, aid, title, tags, categories, allowcomment, publish, description, content, true);
     }
     
     @DeleteMapping(value = "/articles/{aid}")

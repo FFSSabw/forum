@@ -91,6 +91,11 @@ public class ArticleServiceImp implements ArticleService{
     }
 
     @Override
+    public void updateArticle(Article article) {
+        articleMapper.updateByPrimaryKeySelective(article);
+    }
+    
+    @Override
     public void deleteArticle(int articleId) {
         if(!checkExist(articleId)) {
             throw new PromptException("文章不存在!");
@@ -112,5 +117,7 @@ public class ArticleServiceImp implements ArticleService{
         articleMapper.insert(article);
         
     }
+
+    
 
 }
