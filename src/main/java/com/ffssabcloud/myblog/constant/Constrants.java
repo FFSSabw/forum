@@ -60,6 +60,6 @@ public interface Constrants {
     
     public static class Types {
         public static final String CATEGORIES = "categories";
-        public static final String Tag = "tag";
+        public static final String TAG = "tag";
     }
 }

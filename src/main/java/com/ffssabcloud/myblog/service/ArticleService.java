@@ -13,4 +13,5 @@ public interface ArticleService {
     public PageInfo<Article> getArticles(String keyword, int page, int limit);
     public void deleteArticle(int articleId);
     public boolean checkExist(int articleId);
+    public void addArticle(Article article);
 }

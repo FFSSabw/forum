@@ -1,6 +1,9 @@
 package com.ffssabcloud.myblog.web.admin;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,31 +12,39 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.Article;
+import com.ffssabcloud.myblog.domain.Meta;
+import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.ArticleService;
+import com.ffssabcloud.myblog.service.SiteService;
+import com.ffssabcloud.myblog.utils.DateUtils;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping(value = "/admin/articles")
+@RequestMapping(value = "/admin")
 public class ArticleController {
     
     @Autowired
     ArticleService articleService;
     
-    @GetMapping(value = "")
+    @Autowired
+    SiteService siteService;
+    
+    @GetMapping(value = "/articles")
     public String getArticles(HttpServletRequest request,
                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
         return this.getArticles(request, 1, limit);
     }
     
-    @GetMapping(value = "/page/{page}")
+    @GetMapping(value = "/articles/page/{page}")
     public String getArticles(HttpServletRequest request,
                                 @PathVariable int page,
                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
@@ -47,28 +58,88 @@ public class ArticleController {
         return "admin/article_list";
     }
     
-    @GetMapping(value = "/publish")
+    @GetMapping(value = "/article")
     public String getArticle(HttpServletRequest request) {
+        request.setAttribute("uri", "/admin/article");
+        return "admin/article_edit";
+    }
+    
+    @PostMapping(value = "/article")
+    @ResponseBody
+    public RestResponseBo postArticle(HttpSession session,
+                                            @RequestParam String title,
+                                            @RequestParam String tags,
+                                            @RequestParam String categories,
+                                            @RequestParam boolean allowcomment,
+                                            @RequestParam boolean publish,
+                                            @RequestParam String description,
+                                            @RequestParam String content) {
+        UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
+        
+        if(StringUtils.isBlank(title)) {
+            return RestResponseBo.fail("标题不能为空");
+        }
+        if(StringUtils.isBlank(categories)) {
+            categories = "默认分组";
+        }
+        if(StringUtils.isBlank(content)) {
+            return RestResponseBo.fail("内容不能为空");
+        }
+        
+        Article article = new Article();
+        article.setTitle(title);
+        article.setTags(tags);
+        article.setCategories(categories);
+        article.setAllowcomment(allowcomment);
+        article.setStatus(publish);
+        article.setDescription(description);
+        article.setContent(content);
+        article.setCreateat(DateUtils.getUnixTime());
+        article.setModifyat(DateUtils.getUnixTime());
+        article.setAuthorid(userInfo.getUser().getId());
+        article.setClicks(0);
+        article.setComments(0);
+        
+        String[] tagsList = tags.split(",");
+        
+        try {
+            articleService.addArticle(article);
+            siteService.setMetas(Constrants.Types.TAG, tagsList);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return RestResponseBo.fail("发生未知错误!");
+        }
+        
+        return RestResponseBo.ok();
+    }
+    
+    @GetMapping(value = "/articles/{articleId}")
+    public String editArticle(HttpServletRequest request,
+                                @PathVariable int articleId) {
+        Article article = null;
+        List<Meta> metas = null;
+        
+        try {
+            article = articleService.getArticle(articleId);
+            metas = siteService.getMetas(Constrants.Types.CATEGORIES);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        request.setAttribute("article", article);
+        request.setAttribute("categories", metas);
+        request.setAttribute("uri", "/admin/articles/" + articleId);
         
         return "admin/article_edit";
     }
     
-    @PostMapping(value = "/publish")
-    public String postArticle() {
-        return "index";
-    }
-    
-    @GetMapping(value = "/{articleId}")
-    public String editArticle(@PathVariable int articleId) {
-        return "admin/article_edit";
-    }
-    
-    @PostMapping(value = "/modify")
-    public RestResponseBo modifyArticle() {
+    @PutMapping(value = "/articles/{articleId}")
+    @ResponseBody
+    public RestResponseBo editArticle(HttpServletRequest request) {
         return RestResponseBo.ok();
     }
     
-    @DeleteMapping(value = "/{aid}")
+    @DeleteMapping(value = "/articles/{aid}")
     @ResponseBody
     public RestResponseBo deleteArticle(@PathVariable int aid) {
         try {

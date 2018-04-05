@@ -56,6 +56,13 @@ public class SiteServiceImp implements SiteService{
     }
     
     @Override
+    public void setMetas(String type, String[] names) {
+        for(String name : names) {
+            setMeta(type, name);
+        }
+    }
+    
+    @Override
     public List<Archive> getArchives() {
         List<Archive> archives = getArchivesWithoutArticles();
         if(archives != null) {
@@ -93,5 +100,7 @@ public class SiteServiceImp implements SiteService{
         
         return true;
     }
+
+    
 
 }

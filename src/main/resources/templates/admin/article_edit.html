@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'My Blog '+*{title}?:' '"></title>
+    <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog-footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/wangEditor.min.css}">
+    <style type="text/css">
+    .article-form-item {
+        margin-top: 10px;
+        padding-left: 5px;
+    }
+
+    .article-form-btns {
+        float: right;
+        margin-right: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div th:replace="navbar::header-nav"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="admin/sidebar::sidebar"></div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">文章编辑</h1>
+                <div class="row placeholders">
+                    <form method="post" class="form-inline" id="article-form">
+                        <div class="form-group article-form-item">
+                            <label for="title">文章标题</label>
+                            <input type="text" name="title" placeholder="文章标题(必须)" class="form-control" style="'width:200px'" th:value="${article!=null and article.title!=null}?${article.title}:''">
+                        </div>
+                        <div class="form-group article-form-item">
+                            <label for="tags">标签(用,分隔)</label>
+                            <input type="text" name="tags" class="form-control" th:value="${article!=null and article.tags!=null}?${article.tags}:''">
+                        </div><br>
+                        <div class="form-group article-form-item">
+                            <label for="categories">分类</label>
+                            <select name="categories" class="form-control">
+                                <option th:each="cate:${categories}" th:text="${cate.name}" th:selected="((${article!=null and article.categories!=null}?${article.categories}:'')==${cate.name})"></option>
+                            </select>
+                        </div>
+                        <div class="form-group article-form-item">
+                            <label for="allowcomment">允许评论</label>
+                            <select name="allowcomment" class="form-control">
+                                <option value="true" th:selected="((${article!=null and article.allowcomment!=null}?${article.allowcomment}:'')==true)">true</option>
+                                <option value="false" th:selected="((${article!=null and article.allowcomment!=null}?${article.allowcomment}:'')==false)">false</option>
+                            </select>
+                        </div>
+                        <div class="form-group article-form-item">
+                            <label for="publish">是否发布</label>
+                            <select name="publish" class="form-control">
+                                <option value="true" th:selected="((${article!=null and article.status!=null}?${article.status}:'')==true)">true</option>
+                                <option value="false" th:selected="((${article!=null and article.status!=null}?${article.status}:'')==false)">false</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group article-form-item">
+                            <label for="title">文章简述</label>
+                            <textarea name="description" placeholder="文章简述" rows="2" class="form-control" style="width:600px" th:text="${article!=null and article.description!=null}?${article.description}:''"></textarea>
+                        </div>
+                        <div id="editor" class="article-form-item"></div>
+                        <div class="form-group article-form-item article-form-btns">
+                            <a class="btn btn-default" th:href="@{/admin/articles}">返回文章列表</a>
+                            <button class="btn btn-primary" type="button" onclick="save_article()">保存文章</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script th:src="@{/js/wangEditor.min.js}"></script>
+    <script th:inline="javascript">
+    var E = window.wangEditor
+    var editor = new E('#editor')
+    editor.create()
+    var content = [[${article!=null and article.content!=null}?${article.content}:'']]
+    var uri = [[${uri}]]
+    editor.txt.html(content)
+    
+    function save_article(is_publish) {
+        $.ajax({
+            type: uri == '/admin/article' ? 'post' : 'put',
+            url: uri,
+            data: $('#article-form').serialize()+'&content='+editor.txt.html(),
+            async: false,
+            dataType: 'json',
+            success: function(result) {
+                if (result && result.success) {
+                    alert("文章已提交至后台审核!");
+                    window.location.reload()
+
+                } else {
+                    if (result.msg) {
+                        alert(result.msg);
+                    }
+                }
+            }
+        });
+        return false;
+    }
+    </script>
+</body>
+
+</html>
