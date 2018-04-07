@@ -48,14 +48,14 @@ public class ArticleServiceImp implements ArticleService{
     }
     
     @Override
-    public Article getArticle(int id) throws NotFoundException {
+    public Article getArticle(int id) throws PromptException {
         Article article = articleMapper.selectByPrimaryKey(id);
         
         if(article == null) {
-            throw new NotFoundException("没有相应的文章");
+            throw new PromptException("没有相应的文章");
         }
         if(article.getStatus().equals(Constrants.Article.UNPUBLISHED)) {
-            throw new NotFoundException("文章未发布");
+            throw new PromptException("文章未发布");
         }
         return article;
     }

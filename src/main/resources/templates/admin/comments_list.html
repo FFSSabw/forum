@@ -44,7 +44,7 @@
                                 <td th:text="${comment.content}">Lorem</td>
                                 <td th:text="${commons.fmtUnixTime(comment.createat)}">ipsum</td>
                                 <td>
-                                    <a href="#">删除</a>
+                                    <a href="#" th:onclick="'javascript:delete_comment(\''+${comment.id}+'\');'">删除</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -54,6 +54,30 @@
             </div>
         </div>
     </div>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script type="text/javascript">
+    function delete_comment(comment_id) {
+        if (confirm('确认要删除评论?') == true) {
+            $.ajax({
+                type: 'delete',
+                url: '/admin/comments/'+comment_id,
+                async: false,
+                dataType: 'json',
+                success: function(result) {
+                    if (result && result.success) {
+                        alert("删除成功");
+                        window.location.reload()
+
+                    } else {
+                        if (result.msg) {
+                            alert(result.msg);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    </script>
 </body>
 
 </html>

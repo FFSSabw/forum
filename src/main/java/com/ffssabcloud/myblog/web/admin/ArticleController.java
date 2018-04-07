@@ -115,8 +115,9 @@ public class ArticleController {
             } else {
                 articleService.addArticle(article);
             }
-            
             siteService.setMetas(Constrants.Types.TAG, tagsList);
+            siteService.updateMetaCount(Constrants.Types.CATEGORIES, categories, 1);
+            siteService.updateMetaCount(Constrants.Types.TAG, tagsList, 1);
         } catch(Exception e) {
             e.printStackTrace();
             return RestResponseBo.fail("发生未知错误!");

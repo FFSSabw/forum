@@ -3,14 +3,14 @@
 
 <body>
     <div th:fragment="comment">
-        <div class="comment-wrap">
+        <div class="comment-wrap" style="margin-top: 30px;">
             <div th:if="${!article.allowcomment}">
                 <h3>该文章已关闭评论</h3>
             </div>
             <div th:if="${article.allowcomment} and ${userInfo eq null}">
                 <h3>需要登录才可以评论,<a th:href="@{/signin}">点击此处登录.</a></h3>
             </div>
-            <div th:if="${article.allowcomment} and ${userInfo ne null}">
+            <div th:if="${article.allowcomment} and ${userInfo ne null}" >
                 <form method="post" id="comment-form" role="form" 
                     onsubmit="return subComment()">
                     <input type="hidden" name="aid" th:value="${article.id}">

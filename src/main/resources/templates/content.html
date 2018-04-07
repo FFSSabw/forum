@@ -22,7 +22,7 @@
                     <p th:text="${article.description}"></p>
                     <hr>
                 </div>
-                <div class="article-main" th:text="${article.content}"></div>
+                <div class="article-main" th:utext="${article.content}"></div>
             </div>
             <div th:replace="sidebar::sidebar"></div>
         </div>

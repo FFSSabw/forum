@@ -6,12 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffssabcloud.myblog.domain.Comment;
+import com.ffssabcloud.myblog.exception.PromptException;
+import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.CommentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -40,5 +44,16 @@ public class CommentController {
         request.setAttribute("pageUri", "/admin/comments/page/");
         
         return "admin/comments_list";
+    }
+    
+    @DeleteMapping(value = "/{cid}")
+    @ResponseBody
+    public RestResponseBo deleteComment(@PathVariable int cid) {
+        try {
+            commentService.deleteComment(cid);
+        } catch(Exception e) {
+            return RestResponseBo.fail(e.getMessage());
+        }
+        return RestResponseBo.ok("删除成功!");
     }
 }

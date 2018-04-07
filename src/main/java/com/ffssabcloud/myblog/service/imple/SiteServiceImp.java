@@ -56,9 +56,34 @@ public class SiteServiceImp implements SiteService{
     }
     
     @Override
+    public void updateMetaCount(String type, String name, Integer count) {
+        MetaExample example = new MetaExample();
+        example.createCriteria().andNameEqualTo(name);
+        List<Meta> metas = metaMapper.selectByExample(example);
+        if(metas.isEmpty()) {
+            return;
+        }
+        Meta meta = metas.get(0);
+        meta.setCount(meta.getCount() + count);
+        
+        metaMapper.updateByExampleSelective(meta, example);
+        
+    }
+
+    @Override
+    public void updateMetaCount(String type, String[] names, Integer count) {
+        for(String name : names) {
+            updateMetaCount(type, name, count);
+        }
+        
+    }
+    
+    @Override
     public void setMetas(String type, String[] names) {
         for(String name : names) {
-            setMeta(type, name);
+            if(!checkMetaExist(name)) {
+                setMeta(type, name);
+            }
         }
     }
     
@@ -100,6 +125,8 @@ public class SiteServiceImp implements SiteService{
         
         return true;
     }
+
+    
 
     
 
