@@ -25,8 +25,7 @@
                 <div class="row placeholders">
                     添加分类:
                     <div>
-                        <form method="post" id="categories-form" role="form" 
-                    onsubmit="return add_categories()" class="form-inline">
+                        <form method="post" id="categories-form" role="form" onsubmit="return add_categories()" class="form-inline">
                             <input type="text" name="cg" class="form-control">
                             <button class="btn btn-primary" type="submit">添加</button>
                         </form>
@@ -49,7 +48,7 @@
                                     <td th:text="${cate.name}">Lorem</td>
                                     <td th:text="${cate.count}">ipsum</td>
                                     <td>
-                                        <a href="#">修改</a> &nbsp;
+                                        <a href="#" th:onclick="'javascript:modify_categories(\''+${cate.id}+'\');'">修改</a> &nbsp;
                                     </td>
                                 </tr>
                             </tbody>
@@ -69,17 +68,43 @@
             async: false,
             dataType: 'json',
             success: function(result) {
-            if (result && result.success) {
-                alert(result.msg);
-                window.location.reload()
-                
-            } else {
-                if (result.msg) {
+                if (result && result.success) {
                     alert(result.msg);
+                    window.location.reload()
+
+                } else {
+                    if (result.msg) {
+                        alert(result.msg);
+                    }
                 }
             }
-        }
         });
+        return false;
+    }
+
+    function modify_categories(categories_id) {
+        var categories = prompt('修改为')
+        if (categories) {
+            $.ajax({
+                type: 'put',
+                url: '/admin/categories/' + categories_id,
+                data: 'name=' + categories,
+                async: false,
+                dataType: 'json',
+                success: function(result) {
+                    if (result && result.success) {
+                        alert(result.msg);
+                        window.location.reload()
+
+                    } else {
+                        if (result.msg) {
+                            alert(result.msg);
+                        }
+                    }
+                }
+            });
+        }
+
         return false;
     }
     </script>

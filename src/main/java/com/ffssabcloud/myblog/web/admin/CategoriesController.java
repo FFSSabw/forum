@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,5 +48,17 @@ public class CategoriesController {
         }
         
         return RestResponseBo.ok("添加类别成功!");
+    }
+    
+    @PutMapping(value = "/{cid}")
+    @ResponseBody
+    public RestResponseBo updateCategories(@PathVariable int cid,
+                                                @RequestParam String name) {
+        try {
+            siteService.updateMetaName(Constrants.Types.CATEGORIES, cid, name);
+        } catch(Exception e) {
+            return RestResponseBo.fail(e.getMessage());
+        }
+        return RestResponseBo.ok("修改成功!");
     }
 }

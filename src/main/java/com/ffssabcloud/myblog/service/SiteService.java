@@ -11,7 +11,8 @@ public interface SiteService {
     public void setMetas(String type, String[] names);
     public void updateMetaCount(String type, String name, Integer count);
     public void updateMetaCount(String type, String[] names, Integer count);
+    public void updateMetaName(String type, Integer metaId, String name);
     public List<Archive> getArchives();
     public List<Archive> getArchivesWithoutArticles();
-    public boolean checkMetaExist(String name);
+    public boolean checkMetaExist(String type, String name);
 }

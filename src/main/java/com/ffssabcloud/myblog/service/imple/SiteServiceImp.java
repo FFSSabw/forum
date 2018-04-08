@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ffssabcloud.myblog.domain.Archive;
 import com.ffssabcloud.myblog.domain.Article;
@@ -42,7 +43,7 @@ public class SiteServiceImp implements SiteService{
         if(StringUtils.isBlank(name)) {
             throw new PromptException("类别名不能为空!");
         }
-        if(checkMetaExist(name)) {
+        if(checkMetaExist(type, name)) {
             throw new PromptException("类别名已存在!");
         }
         
@@ -79,9 +80,31 @@ public class SiteServiceImp implements SiteService{
     }
     
     @Override
+    @Transactional
+    public void updateMetaName(String type, Integer metaId, String name) {
+        Meta meta = metaMapper.selectByPrimaryKey(metaId);
+        if(meta == null) {
+            throw new PromptException("meta不存在!");
+        }
+        if(checkMetaExist(type, name)) {
+            throw new PromptException("已有Meta名!");
+        }
+        
+        ArticleExample example = new ArticleExample();
+        example.createCriteria().andCategoriesEqualTo(meta.getName());
+        Article article = new Article();
+        article.setCategories(name);
+        meta.setName(name);
+        
+        articleMapper.updateByExampleSelective(article, example);
+        metaMapper.updateByPrimaryKey(meta);
+        
+    }
+    
+    @Override
     public void setMetas(String type, String[] names) {
         for(String name : names) {
-            if(!checkMetaExist(name)) {
+            if(!checkMetaExist(type, name)) {
                 setMeta(type, name);
             }
         }
@@ -115,19 +138,15 @@ public class SiteServiceImp implements SiteService{
     }
 
     @Override
-    public boolean checkMetaExist(String name) {
+    public boolean checkMetaExist(String type, String name) {
         MetaExample example = new MetaExample();
-        example.createCriteria().andNameEqualTo(name);
-        
+        example.createCriteria()
+            .andNameEqualTo(name)
+            .andTypeEqualTo(type);
         if(metaMapper.countByExample(example) == 0) {
             return false;
         }
         
         return true;
     }
-
-    
-
-    
-
 }
