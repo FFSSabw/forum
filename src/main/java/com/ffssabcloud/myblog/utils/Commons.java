@@ -3,8 +3,10 @@ package com.ffssabcloud.myblog.utils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.Article;
+import com.ffssabcloud.myblog.domain.Option;
 
 /**
  * 公共函数
@@ -24,6 +27,8 @@ import com.ffssabcloud.myblog.domain.Article;
  */
 @Component
 public class Commons {
+    
+    public static Map<String, String> options = new HashMap<>();
     
     public String random(int max, String suffix) {
         Random random = new Random();

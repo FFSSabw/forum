@@ -61,5 +61,7 @@ public interface Constrants {
     public static class Types {
         public static final String CATEGORIES = "categories";
         public static final String TAG = "tag";
+        public static final String SITE = "site";
+        public static final String SOCIAL = "social";
     }
 }

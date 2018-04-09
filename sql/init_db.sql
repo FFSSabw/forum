@@ -63,3 +63,10 @@ CREATE TABLE Comment (
     content TEXT not null,
     PRIMARY KEY(id)
 )ENGINE=InnoDB;
+
+CREATE TABLE t_option (
+    name varchar(32) NOT NULL,
+    value varchar(1024) DEFAULT '',
+    description varchar(1024) DEFAULT NULL,
+    PRIMARY KEY(name)
+)ENGINE=InnoDB;

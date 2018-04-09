@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${commons.options.get('site_title')}+'网站设置'"></title>
+    <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog-footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/blog.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+    <div th:replace="navbar::header-nav"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="admin/sidebar::sidebar"></div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">网站设置</h1>
+                <div class="row placeholders">
+                </div>
+                <div class="table-responsive">
+                    <form id="setting-form">
+                        <div class="form-group" th:each="option:${commons.options}">
+                            <label th:for="${option.key}" th:text="${option.key}"></label>
+                            <input type="text" th:name="${option.key}" th:value="${option.value}" class="form-control" style="width: 500px">
+                        </div>
+                        <button class="btn btn-primary" onclick="save_setting()">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+    <script type="text/javascript">
+    function save_setting() {
+        $.ajax({
+            type: 'put',
+            url: '/admin/options',
+            data: $('#setting-form').serialize(),
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if (result && result.success) {
+                    alert(result.msg)
+                    window.location.reload()
+                } else {
+                    if (result.msg) {
+                        alert(result.msg);
+                    }
+                }
+            }
+        });
+    }
+    </script>
+</body>
+
+</html>

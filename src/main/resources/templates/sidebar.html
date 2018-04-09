@@ -25,7 +25,9 @@
             <div class="sidebar-module">
                 <h4>Elsewhere</h4>
                 <ol class="list-unstyled">
-                    <li><a href="#">GitHub</a></li>
+                    <li th:each="social:${commons.options}" th:if="${#strings.startsWith(social.key, 'social')}">
+                        <a th:href="@{${social.value}}" th:text="${#strings.listSplit(social.key, '_').get(1)}">GitHub</a>
+                    </li>
                 </ol>
             </div>
         </div>
