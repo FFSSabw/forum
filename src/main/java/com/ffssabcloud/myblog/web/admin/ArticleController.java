@@ -50,7 +50,7 @@ public class ArticleController {
                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
 
         page = page < 0 || page > Constrants.Web.MAX_PAGE ? 1 : page;
-        PageInfo<Article> pageInfo = articleService.getArticles(page, limit);
+        PageInfo<Article> pageInfo = articleService.getArticles(null, page, limit);
         
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("pageUri", "/admin/articles/page/");

@@ -26,17 +26,24 @@ public class ArticleServiceImp implements ArticleService{
     
     @Override
     public PageInfo<Article> getArticles(int page, int limit) {
-        return this.getArticles(null, page, limit);
+        return getArticles(null, Constrants.Article.PUBLISHED, page, limit);
     }
     
     @Override
-    public PageInfo<Article> getArticles(String keyword, int page, int limit) {
+    public PageInfo<Article> getArticles(Boolean status, int page, int limit) {
+        return getArticles(null, status, page, limit);
+    }
+    
+    @Override
+    public PageInfo<Article> getArticles(String keyword, Boolean status, int page, int limit) {
         PageHelper.startPage(page, limit);
         ArticleExample example = new ArticleExample();
         example.setOrderByClause("createAt desc");
         
         Criteria criteria = example.createCriteria();
-        criteria.andStatusEqualTo(Constrants.Article.PUBLISHED);
+        if(status != null) {
+            criteria.andStatusEqualTo(status);
+        }
         if(keyword != null) {
             criteria.andCategoriesEqualTo(keyword);
         }
@@ -117,7 +124,5 @@ public class ArticleServiceImp implements ArticleService{
         articleMapper.insert(article);
         
     }
-
-    
 
 }

@@ -70,7 +70,7 @@ public class IndexController extends BaseController{
                                 @PathVariable int page,
                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
         page = page < 0 || page > Constrants.Web.MAX_PAGE ? 1 : page;
-        PageInfo<Article> pageInfo = articleService.getArticles(keyword, page, limit);
+        PageInfo<Article> pageInfo = articleService.getArticles(keyword, Constrants.Article.PUBLISHED, page, limit);
         
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("pageUri", "/categories/" + keyword + "/");
