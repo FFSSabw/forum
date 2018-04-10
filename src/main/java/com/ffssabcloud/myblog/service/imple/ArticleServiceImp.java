@@ -15,6 +15,7 @@ import com.ffssabcloud.myblog.domain.dao.ArticleMapper;
 import com.ffssabcloud.myblog.exception.NotFoundException;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.service.ArticleService;
+import com.ffssabcloud.myblog.service.SiteService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -23,6 +24,9 @@ public class ArticleServiceImp implements ArticleService{
     
     @Autowired
     ArticleMapper articleMapper;
+    
+    @Autowired
+    SiteService siteService;
     
     @Override
     public PageInfo<Article> getArticles(int page, int limit) {
@@ -56,13 +60,20 @@ public class ArticleServiceImp implements ArticleService{
     
     @Override
     public Article getArticle(int id) throws PromptException {
+        return getArticle(Constrants.Article.PUBLISHED, id);
+    }
+    
+    @Override
+    public Article getArticle(Boolean status, int id) throws PromptException {
         Article article = articleMapper.selectByPrimaryKey(id);
         
         if(article == null) {
             throw new PromptException("没有相应的文章");
         }
-        if(article.getStatus().equals(Constrants.Article.UNPUBLISHED)) {
-            throw new PromptException("文章未发布");
+        if(status != null) {
+            if(article.getStatus().equals(Constrants.Article.UNPUBLISHED)) {
+                throw new PromptException("文章未发布");
+            }
         }
         return article;
     }
@@ -103,10 +114,13 @@ public class ArticleServiceImp implements ArticleService{
     }
     
     @Override
+    @Transactional
     public void deleteArticle(int articleId) {
-        if(!checkExist(articleId)) {
+        Article article = articleMapper.selectByPrimaryKey(articleId);
+        if(article == null) {
             throw new PromptException("文章不存在!");
         }
+        siteService.updateMetaCount(Constrants.Types.CATEGORIES, article.getCategories(), -1);
         articleMapper.deleteByPrimaryKey(articleId);
     }
 
@@ -124,5 +138,7 @@ public class ArticleServiceImp implements ArticleService{
         articleMapper.insert(article);
         
     }
+
+    
 
 }

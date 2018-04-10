@@ -10,6 +10,7 @@ public interface ArticleService {
     public PageInfo<Article> getArticles(Boolean status, int page, int limit);
     public PageInfo<Article> getArticles(String keyword, Boolean status, int page, int limit);
     public Article getArticle(int id) throws PromptException;
+    public Article getArticle(Boolean status, int id) throws PromptException;
     public void addCommentNum(int articleId, int num);
     public void addCommentNum(int articleId);
     public void updateArticleClicks(Integer articleId, Integer clicks);

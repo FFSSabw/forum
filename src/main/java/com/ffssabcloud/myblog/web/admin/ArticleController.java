@@ -50,7 +50,7 @@ public class ArticleController {
                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
 
         page = page < 0 || page > Constrants.Web.MAX_PAGE ? 1 : page;
-        PageInfo<Article> pageInfo = articleService.getArticles(null, page, limit);
+        PageInfo<Article> pageInfo = articleService.getArticles(Constrants.Article.All, page, limit);
         
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("pageUri", "/admin/articles/page/");
@@ -114,9 +114,9 @@ public class ArticleController {
                 articleService.updateArticle(article);
             } else {
                 articleService.addArticle(article);
+                siteService.updateMetaCount(Constrants.Types.CATEGORIES, categories, 1);
             }
             siteService.setMetas(Constrants.Types.TAG, tagsList);
-            siteService.updateMetaCount(Constrants.Types.CATEGORIES, categories, 1);
             siteService.updateMetaCount(Constrants.Types.TAG, tagsList, 1);
         } catch(Exception e) {
             e.printStackTrace();
@@ -133,7 +133,7 @@ public class ArticleController {
         List<Meta> metas = null;
         
         try {
-            article = articleService.getArticle(articleId);
+            article = articleService.getArticle(Constrants.Article.All, articleId);
             metas = siteService.getMetas(Constrants.Types.CATEGORIES);
         } catch(Exception e) {
             e.printStackTrace();

@@ -54,8 +54,9 @@ public interface Constrants {
      *
      */
     public static class Article {
-        public static final boolean PUBLISHED = true;
-        public static final boolean UNPUBLISHED = false;
+        public static final Boolean PUBLISHED = true;
+        public static final Boolean UNPUBLISHED = false;
+        public static final Boolean All = null;
     }
     
     public static class Types {
