@@ -49,7 +49,7 @@ public class AdminController extends BaseController{
     
     @GetMapping(value = "/options")
     public String options() {
-        return "admin/option";
+        return "admin/options";
     }
     
     @PutMapping(value = "/options")

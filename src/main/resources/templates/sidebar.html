@@ -10,11 +10,10 @@
     <div th:fragment="sidebar">
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
             <div class="sidebar-module sidebar-module-inset">
-                <h4>About</h4>
-                <p>About Blog ...............................</p>
+                <h4></h4>
             </div>
             <div class="sidebar-module">
-                <h4>Archives</h4>
+                <h4>归档</h4>
                 <ol class="list-unstyled">
                     <li th:each="archive:${archives}">
                     <a th:href="@{'/archives'+'#'+${archive.date}}" 
@@ -23,7 +22,7 @@
                 </ol>
             </div>
             <div class="sidebar-module">
-                <h4>Elsewhere</h4>
+                <h4>其他</h4>
                 <ol class="list-unstyled">
                     <li th:each="social:${commons.options}" th:if="${#strings.startsWith(social.key, 'social')}">
                         <a th:href="@{${social.value}}" th:text="${#strings.listSplit(social.key, '_').get(1)}">GitHub</a>

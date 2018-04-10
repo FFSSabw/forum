@@ -3,7 +3,7 @@
 <body>
     <div th:fragment="article-list" class="container article-list-wrap">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-8" style="min-height: 600px;">
                 <div class="media article-media" th:each="article:${pageInfo.list}">
                     <div class="media-body">
                         <h4 class="media-heading">

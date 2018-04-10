@@ -5,7 +5,7 @@ insert into LocalAuth(roleId, username, password) values(2, 'admin', '91a2d41408
 
 INSERT INTO t_option (name, value, description)
 VALUES
-    ('title', 'My Blog',''),
+    ('site_title', 'My Blog',''),
     ('social_weibo', '',NULL),
     ('social_zhihu', '',NULL),
     ('social_github', '',NULL),
