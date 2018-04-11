@@ -14,18 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.constant.Constrants.RestResponse;
 import com.ffssabcloud.myblog.domain.Archive;
 import com.ffssabcloud.myblog.domain.Article;
 import com.ffssabcloud.myblog.domain.Comment;
 import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.exception.NotFoundException;
-import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.ArticleService;
 import com.ffssabcloud.myblog.service.CommentService;

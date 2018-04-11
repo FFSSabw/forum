@@ -1,5 +1,6 @@
 package com.ffssabcloud.myblog.service.imple;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class SiteServiceImp implements SiteService{
     }
 
     @Override
-    public void updateMetaCount(String type, String[] names, Integer count) {
+    public void updateMetaCount(String type, Collection<String> names, Integer count) {
         for(String name : names) {
             updateMetaCount(type, name, count);
         }
@@ -102,11 +103,12 @@ public class SiteServiceImp implements SiteService{
     }
     
     @Override
-    public void setMetas(String type, String[] names) {
+    public void setMetas(String type, Collection<String> names) {
         for(String name : names) {
-            if(!checkMetaExist(type, name)) {
-                setMeta(type, name);
+            if(checkMetaExist(type, name) || StringUtils.isBlank(name)) {
+                break;
             }
+            setMeta(type, name);
         }
     }
     

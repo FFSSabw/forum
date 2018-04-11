@@ -1,6 +1,9 @@
 package com.ffssabcloud.myblog.web.admin;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -93,6 +96,8 @@ public class ArticleController {
         }
         
         Article article = new Article();
+        Set<String> tagsSet = new HashSet<>(Arrays.asList(tags.split(",")));
+        
         if(isModify) {
             article.setId(aid);
         } else {
@@ -102,7 +107,7 @@ public class ArticleController {
             article.setComments(0);
         }
         article.setTitle(title);
-        article.setTags(tags);
+        article.setTags(String.join(",", tagsSet));
         article.setCategories(categories);
         article.setAllowcomment(allowcomment);
         article.setStatus(publish);
@@ -111,7 +116,7 @@ public class ArticleController {
         article.setModifyat(DateUtils.getUnixTime());  
         
         
-        String[] tagsList = tags.split(",");
+        
         
         try {
             if(isModify) {
@@ -120,8 +125,8 @@ public class ArticleController {
                 articleService.addArticle(article);
                 siteService.updateMetaCount(Constrants.Types.CATEGORIES, categories, 1);
             }
-            siteService.setMetas(Constrants.Types.TAG, tagsList);
-            siteService.updateMetaCount(Constrants.Types.TAG, tagsList, 1);
+            siteService.setMetas(Constrants.Types.TAG, tagsSet);
+            siteService.updateMetaCount(Constrants.Types.TAG, tagsSet, 1);
         } catch(Exception e) {
             e.printStackTrace();
             return RestResponseBo.fail("发生未知错误!");
