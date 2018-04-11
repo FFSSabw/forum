@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.Archive;
 import com.ffssabcloud.myblog.domain.Article;
-import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.service.ArticleService;
 import com.ffssabcloud.myblog.service.SiteService;
-import com.ffssabcloud.myblog.utils.Commons;
 import com.github.pagehelper.PageInfo;
 
 @Controller
 public class IndexController extends BaseController{
     
+    private static final Logger LOGGER = LogManager.getLogger(IndexController.class);
     @Autowired
     ArticleService articleService;
     
@@ -33,7 +34,6 @@ public class IndexController extends BaseController{
     public String index(HttpServletRequest request,
                         HttpSession session,
                         @RequestParam(value = "limit", defaultValue = "12") int limit) {
-        
         return this.index(request, session, 1, limit);
     }
     

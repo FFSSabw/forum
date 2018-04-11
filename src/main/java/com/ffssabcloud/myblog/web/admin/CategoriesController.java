@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,8 @@ import com.ffssabcloud.myblog.service.SiteService;
 @Controller
 @RequestMapping(value = "/admin/categories")
 public class CategoriesController {
+    
+    private static final Logger LOGGER = LogManager.getLogger(CategoriesController.class);
     
     @Autowired
     SiteService siteService;
@@ -47,6 +51,8 @@ public class CategoriesController {
             }
         }
         
+        LOGGER.info("添加类别成功, 类别名称为: " + cg);
+        
         return RestResponseBo.ok("添加类别成功!");
     }
     
@@ -59,6 +65,9 @@ public class CategoriesController {
         } catch(Exception e) {
             return RestResponseBo.fail(e.getMessage());
         }
+        
+        LOGGER.info("修改类别成功，被修改类别ID为" + cid + "，修改名称为" + name);
+        
         return RestResponseBo.ok("修改成功!");
     }
 }

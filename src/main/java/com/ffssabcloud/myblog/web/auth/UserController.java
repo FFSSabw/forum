@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.exception.PromptException;
-import com.ffssabcloud.myblog.modal.UserContext;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.UserService;
 import com.ffssabcloud.myblog.utils.WebUtils;
@@ -27,6 +27,7 @@ import com.ffssabcloud.myblog.utils.WebUtils;
 @Controller
 public class UserController {
     
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
     @Autowired
     UserService userService;
     
@@ -45,7 +46,6 @@ public class UserController {
                                 @RequestParam String secondPassword,
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
-        String msg;
 
         try {
             if(!firstPassword.equals(secondPassword)) {
@@ -57,13 +57,13 @@ public class UserController {
             
             userService.createAUser(username, firstPassword);
         } catch(Exception e) {
-            e.printStackTrace();
+            String msg = null;
             if(e instanceof NullPointerException) {
                 msg = "字段不能为空";
             } else {
                 msg = "未知错误";
             }
-            
+            LOGGER.warn("用户注册失败: " + msg);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok("注册成功!");

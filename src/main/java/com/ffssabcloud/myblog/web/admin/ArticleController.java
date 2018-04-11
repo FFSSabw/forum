@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +33,8 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping(value = "/admin")
 public class ArticleController {
+    
+    private static final Logger LOGGER = LogManager.getLogger(ArticleController.class);
     
     @Autowired
     ArticleService articleService;
@@ -122,6 +126,7 @@ public class ArticleController {
             e.printStackTrace();
             return RestResponseBo.fail("发生未知错误!");
         }
+        LOGGER.info("保存文章成功, 文章标题为:" + title);
         
         return RestResponseBo.ok();
     }
@@ -170,6 +175,7 @@ public class ArticleController {
                 return RestResponseBo.fail(e.getMessage());
             }
         }
+        LOGGER.info("删除文章成功, 文章Id为: " + aid);
         return RestResponseBo.ok();
     }
 }

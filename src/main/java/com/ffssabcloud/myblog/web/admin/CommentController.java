@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffssabcloud.myblog.domain.Comment;
-import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.CommentService;
 import com.github.pagehelper.PageHelper;
@@ -23,6 +24,8 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping(value = "/admin/comments")
 public class CommentController {
+    
+    private static final Logger LOGGER = LogManager.getLogger(CommentController.class);
     
     @Autowired
     CommentService commentService;
@@ -54,6 +57,9 @@ public class CommentController {
         } catch(Exception e) {
             return RestResponseBo.fail(e.getMessage());
         }
+        
+        LOGGER.info("删除评论成功, 评论ID为: " + cid);
+        
         return RestResponseBo.ok("删除成功!");
     }
 }

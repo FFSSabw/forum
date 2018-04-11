@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,7 @@ import com.ffssabcloud.myblog.utils.DateUtils;
 @Controller
 public class ContentController extends BaseController{
     
+    private static final Logger LOGGER = LogManager.getLogger(ContentController.class);
     @Autowired
     ArticleService articleService;
     
@@ -110,9 +113,8 @@ public class ContentController extends BaseController{
             commentService.addComment(comment);
             articleService.addCommentNum(aid);
         } catch(Exception e) {
-            if(e instanceof PromptException) {
-                return RestResponseBo.fail(e.getMessage());
-            }
+            LOGGER.error("fail to createComment: " + e.getMessage());
+            return RestResponseBo.fail(e.getMessage());
         }
         
         return RestResponseBo.ok("提交成功!");
