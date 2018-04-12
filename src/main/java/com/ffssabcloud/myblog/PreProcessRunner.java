@@ -28,6 +28,5 @@ public class PreProcessRunner implements ApplicationRunner{
         for(Option option : options) {
             commons.options.put(option.getName(), option.getValue());
         }
-        System.out.println(commons.options);
     }
 }

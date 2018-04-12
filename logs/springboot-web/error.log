@@ -1,0 +1,72 @@
+[2018-04-11 18:36:00,002][pool-3-thread-1][ERROR][org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler:96] Unexpected error occurred in scheduled task.
+org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost:6379
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:964) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:932) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:785) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:299) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:132) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:95) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:82) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:184) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:95) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.DefaultSetOperations.members(DefaultSetOperations.java:158) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.core.DefaultBoundSetOperations.members(DefaultBoundSetOperations.java:152) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.session.data.redis.RedisSessionExpirationPolicy.cleanExpiredSessions(RedisSessionExpirationPolicy.java:132) ~[spring-session-data-redis-2.0.2.RELEASE.jar:2.0.2.RELEASE]
+	at org.springframework.session.data.redis.RedisOperationsSessionRepository.cleanupExpiredSessions(RedisOperationsSessionRepository.java:393) ~[spring-session-data-redis-2.0.2.RELEASE.jar:2.0.2.RELEASE]
+	at org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration.lambda$configureTasks$0(RedisHttpSessionConfiguration.java:242) ~[spring-session-data-redis-2.0.2.RELEASE.jar:2.0.2.RELEASE]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) [spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93) [spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_161]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_161]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180) [?:1.8.0_161]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293) [?:1.8.0_161]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_161]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_161]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_161]
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to localhost:6379
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:56) ~[lettuce-core-5.0.2.RELEASE.jar:?]
+	at io.lettuce.core.AbstractRedisClient.getConnection(AbstractRedisClient.java:233) ~[lettuce-core-5.0.2.RELEASE.jar:?]
+	at io.lettuce.core.RedisClient.connectStandalone(RedisClient.java:253) ~[lettuce-core-5.0.2.RELEASE.jar:?]
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:202) ~[lettuce-core-5.0.2.RELEASE.jar:?]
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:56) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:957) ~[spring-data-redis-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	... 23 more
+Caused by: java.lang.IllegalStateException: executor not accepting a task
+	at io.netty.resolver.AddressResolverGroup.getResolver(AddressResolverGroup.java:60) ~[netty-resolver-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect0(Bootstrap.java:200) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.bootstrap.Bootstrap.access$000(Bootstrap.java:49) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.bootstrap.Bootstrap$1.operationComplete(Bootstrap.java:188) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.bootstrap.Bootstrap$1.operationComplete(Bootstrap.java:174) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:511) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:485) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:424) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.DefaultPromise.trySuccess(DefaultPromise.java:103) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.channel.DefaultChannelPromise.trySuccess(DefaultChannelPromise.java:84) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.safeSetSuccess(AbstractChannel.java:978) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:512) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:423) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:482) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:463) ~[netty-transport-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:886) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.22.Final.jar:4.1.22.Final]
+	... 1 more
+[2018-04-11 20:29:35,726][localhost-startStop-1][ERROR][org.springframework.boot.web.embedded.tomcat.TomcatStarter:62] Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'webMvcMetricsFilter' defined in class path resource [org/springframework/boot/actuate/autoconfigure/metrics/web/servlet/WebMvcMetricsAutoConfiguration.class]: Unsatisfied dependency expressed through method 'webMvcMetricsFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleMeterRegistry' defined in class path resource [org/springframework/boot/actuate/autoconfigure/metrics/export/simple/SimpleMetricsExportAutoConfiguration.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'propertiesMeterFilter' defined in class path resource [org/springframework/boot/actuate/autoconfigure/metrics/MetricsAutoConfiguration.class]: Unsatisfied dependency expressed through method 'propertiesMeterFilter' parameter 0; nested exception is org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties': Could not bind properties to 'MetricsProperties' : prefix=management.metrics, ignoreInvalidFields=false, ignoreUnknownFields=true; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'management.metrics.enable' to java.util.Map<java.lang.String, java.lang.Boolean>
+[2018-04-11 20:29:35,810][main][ERROR][org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter:42] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'management.metrics.enable' to java.util.Map<java.lang.String, java.lang.Boolean>:
+
+    Reason: No converter found capable of converting from type [java.lang.String] to type [java.util.Map<java.lang.String, java.lang.Boolean>]
+
+Action:
+
+Update your application's configuration
+
