@@ -27,21 +27,16 @@ public class BaseInterceptor implements HandlerInterceptor{
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-        String uri = request.getRequestURI();
+            throws Exception { 
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
-
-        if(uri.startsWith("/admin") && (userInfo == null || 
-                !(Constrants.Roles.ADMIN.equals(((Localauth)userInfo.getAuth()).getRoleid())))) {
-            response.sendRedirect("/");
-            return false;
-        }
+        
         if(userInfo != null && "GET".equals(request.getMethod())) {
             String uuid = "abc";
             session.setAttribute("_csrf_token", uuid);
             request.setAttribute("_csrf_token", uuid);
         }
+        
         return true;
     }
 
@@ -50,8 +45,11 @@ public class BaseInterceptor implements HandlerInterceptor{
             Object o, ModelAndView modelAndView) throws Exception {
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(Constrants.Web.SESSION_USERINFO_NAME);
+        
         request.setAttribute("commons", commons);
         request.setAttribute("categories", siteService.getMetas(Constrants.Types.CATEGORIES));
         request.setAttribute("userInfo", userInfo);
     }
+    
+    
 }

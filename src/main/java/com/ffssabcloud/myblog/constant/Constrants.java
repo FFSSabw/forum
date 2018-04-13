@@ -43,7 +43,7 @@ public interface Constrants {
      *
      */
     public static class Web {
-        public static final String COOKIE_NAME = "SESSION";
+        public static final String SESSION_NAME = "SESSION";
         public static final String COOKIE_SALT = "qwegmkmv;l;";
         public static final int MAX_PAGE = 64;
         public static final String SESSION_USERINFO_NAME = "userInfo";

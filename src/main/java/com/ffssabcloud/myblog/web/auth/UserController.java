@@ -21,7 +21,6 @@ import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.modal.bo.RestResponseBo;
 import com.ffssabcloud.myblog.service.UserService;
-import com.ffssabcloud.myblog.utils.WebUtils;
 
 
 @Controller
@@ -30,9 +29,6 @@ public class UserController {
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
     @Autowired
     UserService userService;
-    
-    @Autowired
-    WebUtils webUtils;
     
     @GetMapping(value = "/register")
     public String register() {

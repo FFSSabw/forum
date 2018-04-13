@@ -30,9 +30,6 @@ public class UserServiceImp implements UserService {
     
     @Autowired
     LocalauthMapper localauthMapper;
-     
-    @Autowired
-    WebUtils webUtils;
     
     @Override
     public UserInfo getUserInfoByUsername(String username) {
@@ -74,7 +71,7 @@ public class UserServiceImp implements UserService {
         user.setUsername(username);
         user.setRegisterby(Constrants.Register.LOCAL);
         
-        String hashed = webUtils.hashWithSalt(password);
+        String hashed = WebUtils.hashWithSalt(password);
         Localauth localauth = new Localauth();
         localauth.setRoleid(Constrants.Roles.AUTHED);
         localauth.setUsername(username);
@@ -106,7 +103,7 @@ public class UserServiceImp implements UserService {
             throw new PromptException("用户名不存在!");
         }
         
-        if(!(webUtils.hashVertify(((Localauth)userInfo.getAuth()).getPassword(), password))) {
+        if(!(WebUtils.hashVertify(((Localauth)userInfo.getAuth()).getPassword(), password))) {
             throw new PromptException("密码错误!");
         }
         
@@ -117,7 +114,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void logout(HttpServletResponse response) {       
-        webUtils.removeLoginCookie(response);
+        WebUtils.removeLoginCookie(response);
     }
 
 }
