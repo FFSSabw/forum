@@ -16,6 +16,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    public boolean checkUsername(String username);
+    public boolean checkExist(String username);
     public void logout(HttpServletResponse response);
+    public void updatePassword(String username, String oldPassword, String newPassword);
 }

@@ -1,17 +1,11 @@
 package com.ffssabcloud.myblog.domain.dao;
 
-
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
 
-import com.ffssabcloud.myblog.constant.Constrants;
 import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.domain.auth.UserExample;
 
-@Component
 public interface UserMapper {
     int countByExample(UserExample example);
 
@@ -22,7 +16,7 @@ public interface UserMapper {
     int insert(User record);
 
     int insertSelective(User record);
-    
+
     List<User> selectByExample(UserExample example);
 
     User selectByPrimaryKey(Integer id);

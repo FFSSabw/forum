@@ -1,6 +1,5 @@
 package com.ffssabcloud.myblog.domain;
 
-
 public class Article {
     private Integer id;
 

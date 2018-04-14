@@ -1,14 +1,9 @@
 package com.ffssabcloud.myblog.domain.auth;
 
-
 public class Role {
     private Integer id;
 
     private String name;
-    
-    public Role() {
-        super();
-    }
 
     public Integer getId() {
         return id;

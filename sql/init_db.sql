@@ -2,32 +2,35 @@ CREATE DATABASE myblog DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 use myblog
 
-CREATE TABLE User (
+CREATE TABLE t_user (
     id INT UNSIGNED auto_increment,
-    username VARCHAR(64) unique not null,
+    username VARCHAR(64) unique NOT NULL,
     description VARCHAR(1024),
     location VARCHAR(512),
     registerBy VARCHAR(16),
     PRIMARY KEY(id)
 )ENGINE=InnoDB, auto_increment=100000;
 
-CREATE TABLE LocalAuth (
-    id INT UNSIGNED auto_increment,
-    roleId INT UNSIGNED not null DEFAULT 0,
-    username VARCHAR(64) unique not null,
-    password VARCHAR(256) not null,
-    PRIMARY KEY(id)
+insert into t_user(username, registerBy, description) values('admin', 'LOCAL', '用户管理员');
+
+CREATE TABLE t_local_auth (
+    username VARCHAR(64) unique NOT NULL,
+    password VARCHAR(256) NOT NULL,
+    roleId INT UNSIGNED NOT NULL DEFAULT 0,
+    PRIMARY KEY(username)
 )ENGINE=InnoDB;
 
-CREATE TABLE Role (
+insert into t_local_auth(roleId, username, password) values(2, 'admin', '91a2d41408eb9bf69e88b3f7eeced4f3');
+
+CREATE TABLE t_role (
     id INT UNSIGNED,
-    name VARCHAR(32) not null,
+    name VARCHAR(32) NOT NULL,
     PRIMARY KEY(id)
 )ENGINE=InnoDB;
 
-CREATE TABLE Article (
+CREATE TABLE t_article (
     id INT UNSIGNED AUTO_INCREMENT,
-    authorId INT UNSIGNED not null,
+    authorId INT UNSIGNED NOT NULL,
     categories VARCHAR(64) NOT NULL,
     title VARCHAR(128) NOT NULL,
     createAt INT UNSIGNED NOT NULL,
@@ -43,7 +46,7 @@ CREATE TABLE Article (
     PRIMARY KEY(id)
 )ENGINE=InnoDB;
 
-CREATE TABLE Meta (
+CREATE TABLE t_meta (
     id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(64) NOT NULL UNIQUE,
     type VARCHAR(64) NOT NULL,
@@ -51,16 +54,18 @@ CREATE TABLE Meta (
     PRIMARY KEY(id)
 )ENGINE=InnoDB;
 
-CREATE TABLE Comment (
+insert into t_meta(name,type, count) values('默认分类', 'categories', 0);
+
+CREATE TABLE t_comment (
     id INT UNSIGNED AUTO_INCREMENT,
     author VARCHAR(64) NOT NULL,
-    authorId INT UNSIGNED not null,
-    articleId INT UNSIGNED not null,
-    articleTitle VARCHAR(128) not null,
+    authorId INT UNSIGNED NOT NULL,
+    articleId INT UNSIGNED NOT NULL,
+    articleTitle VARCHAR(128) NOT NULL,
     replyId INT UNSIGNED,
     reply VARCHAR(64),
-    createAt INT UNSIGNED not null,
-    content TEXT not null,
+    createAt INT UNSIGNED NOT NULL,
+    content TEXT NOT NULL,
     PRIMARY KEY(id)
 )ENGINE=InnoDB;
 
@@ -70,3 +75,12 @@ CREATE TABLE t_option (
     description varchar(1024) DEFAULT NULL,
     PRIMARY KEY(name)
 )ENGINE=InnoDB;
+
+INSERT INTO t_option (name, value, description)
+VALUES
+    ('site_title', 'My Blog',''),
+    ('social_weibo', '',NULL),
+    ('social_zhihu', '',NULL),
+    ('social_github', '',NULL),
+    ('site_description', '这是一个分享知识的博客',NULL),
+    ('site_record', '','备案号');

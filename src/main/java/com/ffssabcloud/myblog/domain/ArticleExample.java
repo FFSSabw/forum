@@ -63,7 +63,6 @@ public class ArticleExample {
         distinct = false;
     }
 
-
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -942,7 +941,6 @@ public class ArticleExample {
             super();
         }
     }
-
 
     public static class Criterion {
         private String condition;

@@ -84,7 +84,7 @@
             distinct
         </if>
         <include refid="Base_Column_List" />
-        from Comment
+        from t_comment
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
@@ -96,24 +96,24 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select 
         <include refid="Base_Column_List" />
-        from Comment
+        from t_comment
         where id = #{id,jdbcType=INTEGER}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-        delete from Comment
+        delete from t_comment
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
     <delete id="deleteByExample" parameterType="com.ffssabcloud.myblog.domain.CommentExample" >
-        delete from Comment
+        delete from t_comment
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
 
     <insert id="insert" parameterType="com.ffssabcloud.myblog.domain.Comment" >
-        insert into Comment (id, author, authorId, 
+        insert into t_comment (id, author, authorId, 
             articleId, articleTitle, replyId, 
             reply, createAt, content
             )
@@ -124,7 +124,7 @@
     </insert>
 
     <insert id="insertSelective" parameterType="com.ffssabcloud.myblog.domain.Comment" >
-        insert into Comment
+        insert into t_comment
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
@@ -186,14 +186,14 @@
     </insert>
 
     <select id="countByExample" parameterType="com.ffssabcloud.myblog.domain.CommentExample" resultType="java.lang.Integer" >
-        select count(*) from Comment
+        select count(*) from t_comment
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
     </select>
 
     <update id="updateByExampleSelective" parameterType="map" >
-        update Comment
+        update t_comment
         <set >
             <if test="record.id != null" >
                 id = #{record.id,jdbcType=INTEGER},
@@ -229,7 +229,7 @@
     </update>
 
     <update id="updateByExample" parameterType="map" >
-        update Comment
+        update t_comment
         set id = #{record.id,jdbcType=INTEGER},
             author = #{record.author,jdbcType=VARCHAR},
             authorId = #{record.authorid,jdbcType=INTEGER},
@@ -245,7 +245,7 @@
     </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.ffssabcloud.myblog.domain.Comment" >
-        update Comment
+        update t_comment
         <set >
             <if test="author != null" >
                 author = #{author,jdbcType=VARCHAR},
@@ -276,7 +276,7 @@
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.ffssabcloud.myblog.domain.Comment" >
-        update Comment
+        update t_comment
         set author = #{author,jdbcType=VARCHAR},
             authorId = #{authorid,jdbcType=INTEGER},
             articleId = #{articleid,jdbcType=INTEGER},

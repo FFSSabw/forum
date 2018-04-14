@@ -5,9 +5,7 @@ import com.ffssabcloud.myblog.domain.Article;
 import com.ffssabcloud.myblog.domain.ArticleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface ArticleMapper {
     int countByExample(ArticleExample example);
 
@@ -30,6 +28,6 @@ public interface ArticleMapper {
     int updateByPrimaryKeySelective(Article record);
 
     int updateByPrimaryKey(Article record);
-    
+
     List<Archive> selectArchives();
 }

@@ -9,7 +9,7 @@ import static org.apache.commons.codec.digest.MessageDigestAlgorithms.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.auth.Localauth;
+import com.ffssabcloud.myblog.domain.auth.LocalAuth;
 import com.ffssabcloud.myblog.domain.auth.UserInfo;
 
 public class WebUtils {
@@ -22,7 +22,7 @@ public class WebUtils {
     
     public static boolean permissionCheck(String uri, String startWith, Integer role, UserInfo userInfo) {
         if(uri.startsWith(startWith) && (userInfo == null || 
-                !(role.equals(((Localauth)userInfo.getAuth()).getRoleid())))) {
+                !(role.equals(((LocalAuth)userInfo.getAuth()).getRoleid())))) {
             return false;
         }
         return true;

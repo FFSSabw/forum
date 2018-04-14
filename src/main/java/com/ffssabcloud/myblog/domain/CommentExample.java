@@ -63,7 +63,6 @@ public class CommentExample {
         distinct = false;
     }
 
-
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -692,7 +691,6 @@ public class CommentExample {
             super();
         }
     }
-
 
     public static class Criterion {
         private String condition;

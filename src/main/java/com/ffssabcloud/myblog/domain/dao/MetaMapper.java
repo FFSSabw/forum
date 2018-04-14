@@ -4,9 +4,7 @@ import com.ffssabcloud.myblog.domain.Meta;
 import com.ffssabcloud.myblog.domain.MetaExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface MetaMapper {
     int countByExample(MetaExample example);
 

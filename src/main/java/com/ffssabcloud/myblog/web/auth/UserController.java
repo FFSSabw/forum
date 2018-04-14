@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,7 +48,7 @@ public class UserController {
             if(!firstPassword.equals(secondPassword)) {
                 return RestResponseBo.fail("密码不一致!");
             }
-            if(userService.checkUsername(username)) {
+            if(userService.checkExist(username)) {
                 return RestResponseBo.fail("用户名已存在！");
             }
             
@@ -62,6 +63,7 @@ public class UserController {
             LOGGER.warn("用户注册失败: " + msg);
             return RestResponseBo.fail(msg);
         }
+        
         return RestResponseBo.ok("注册成功!");
     }
     
@@ -111,4 +113,28 @@ public class UserController {
         }
 
     }
+    
+    @GetMapping(value = "/users/password")
+    public String resetPassword() {
+        return "auth/reset_password";
+    }
+    
+//    @PutMapping(value = "/users/password")
+//    @ResponseBody
+//    public RestResponseBo resetPassword(@RequestParam String username,
+//                                            @RequestParam String oldPassword,
+//                                            @RequestParam String newPassword,
+//                                            @RequestParam String reNewPassword) {
+//        if(!newPassword.equals(reNewPassword)) {
+//            return RestResponseBo.fail("密码不一致!");
+//        }
+//        
+//        try {
+//            userService.updatePassword(username, oldPassword, newPassword);
+//        } catch(Exception e) {
+//            return RestResponseBo.fail(e.getMessage());
+//        }
+//        
+//        return RestResponseBo.ok();
+//    }
 }

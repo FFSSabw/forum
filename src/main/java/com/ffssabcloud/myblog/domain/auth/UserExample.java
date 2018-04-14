@@ -63,12 +63,6 @@ public class UserExample {
         distinct = false;
     }
 
-    @Override
-    public String toString() {
-        return "UserExample [orderByClause=" + orderByClause + ", distinct=" + distinct + ", oredCriteria="
-                + oredCriteria + "]";
-    }
-
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -457,7 +451,6 @@ public class UserExample {
             super();
         }
     }
-
 
     public static class Criterion {
         private String condition;

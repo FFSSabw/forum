@@ -79,7 +79,7 @@
             distinct
         </if>
         <include refid="Base_Column_List" />
-        from Meta
+        from t_meta
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
@@ -91,31 +91,31 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select 
         <include refid="Base_Column_List" />
-        from Meta
+        from t_meta
         where id = #{id,jdbcType=INTEGER}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-        delete from Meta
+        delete from t_meta
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
     <delete id="deleteByExample" parameterType="com.ffssabcloud.myblog.domain.MetaExample" >
-        delete from Meta
+        delete from t_meta
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
 
     <insert id="insert" parameterType="com.ffssabcloud.myblog.domain.Meta" >
-        insert into Meta (id, name, type, 
+        insert into t_meta (id, name, type, 
             count)
         values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
             #{count,jdbcType=INTEGER})
     </insert>
 
     <insert id="insertSelective" parameterType="com.ffssabcloud.myblog.domain.Meta" >
-        insert into Meta
+        insert into t_meta
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
@@ -147,14 +147,14 @@
     </insert>
 
     <select id="countByExample" parameterType="com.ffssabcloud.myblog.domain.MetaExample" resultType="java.lang.Integer" >
-        select count(*) from Meta
+        select count(*) from t_meta
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
     </select>
 
     <update id="updateByExampleSelective" parameterType="map" >
-        update Meta
+        update t_meta
         <set >
             <if test="record.id != null" >
                 id = #{record.id,jdbcType=INTEGER},
@@ -175,7 +175,7 @@
     </update>
 
     <update id="updateByExample" parameterType="map" >
-        update Meta
+        update t_meta
         set id = #{record.id,jdbcType=INTEGER},
             name = #{record.name,jdbcType=VARCHAR},
             type = #{record.type,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
     </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.ffssabcloud.myblog.domain.Meta" >
-        update Meta
+        update t_meta
         <set >
             <if test="name != null" >
                 name = #{name,jdbcType=VARCHAR},
@@ -202,7 +202,7 @@
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.ffssabcloud.myblog.domain.Meta" >
-        update Meta
+        update t_meta
         set name = #{name,jdbcType=VARCHAR},
             type = #{type,jdbcType=VARCHAR},
             count = #{count,jdbcType=INTEGER}

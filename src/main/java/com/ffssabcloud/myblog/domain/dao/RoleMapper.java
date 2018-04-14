@@ -1,14 +1,11 @@
 package com.ffssabcloud.myblog.domain.dao;
 
-
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 import com.ffssabcloud.myblog.domain.auth.Role;
 import com.ffssabcloud.myblog.domain.auth.RoleExample;
 
-@Component
 public interface RoleMapper {
     int countByExample(RoleExample example);
 

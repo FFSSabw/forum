@@ -11,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.auth.Localauth;
 import com.ffssabcloud.myblog.domain.auth.UserInfo;
 import com.ffssabcloud.myblog.service.SiteService;
 import com.ffssabcloud.myblog.utils.Commons;

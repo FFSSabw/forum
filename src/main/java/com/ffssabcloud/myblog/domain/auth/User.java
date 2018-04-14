@@ -3,7 +3,7 @@ package com.ffssabcloud.myblog.domain.auth;
 import java.io.Serializable;
 
 public class User implements Serializable{
-
+    
     /**
      * 
      */
@@ -18,10 +18,6 @@ public class User implements Serializable{
     private String location;
 
     private String registerby;
-    
-    public User() {
-        super();
-    }
 
     public Integer getId() {
         return id;

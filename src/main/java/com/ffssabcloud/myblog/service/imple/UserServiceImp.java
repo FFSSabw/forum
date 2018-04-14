@@ -6,17 +6,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ffssabcloud.myblog.constant.Constrants;
-import com.ffssabcloud.myblog.domain.auth.Localauth;
-import com.ffssabcloud.myblog.domain.auth.LocalauthExample;
+import com.ffssabcloud.myblog.domain.auth.LocalAuth;
+import com.ffssabcloud.myblog.domain.auth.LocalAuthExample;
 import com.ffssabcloud.myblog.domain.auth.User;
 import com.ffssabcloud.myblog.domain.auth.UserExample;
 import com.ffssabcloud.myblog.domain.auth.UserInfo;
-import com.ffssabcloud.myblog.domain.dao.LocalauthMapper;
+import com.ffssabcloud.myblog.domain.dao.LocalAuthMapper;
 import com.ffssabcloud.myblog.domain.dao.UserMapper;
 import com.ffssabcloud.myblog.exception.PromptException;
 import com.ffssabcloud.myblog.service.UserService;
@@ -29,11 +30,11 @@ public class UserServiceImp implements UserService {
     UserMapper userMapper;
     
     @Autowired
-    LocalauthMapper localauthMapper;
+    LocalAuthMapper localauthMapper;
     
     @Override
     public UserInfo getUserInfoByUsername(String username) {
-        List<Localauth> auth = null;
+        List<LocalAuth> auth = null;
         
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
@@ -44,7 +45,7 @@ public class UserServiceImp implements UserService {
         }
         User user = users.get(0);
         
-        LocalauthExample localauthExample = new LocalauthExample();
+        LocalAuthExample localauthExample = new LocalAuthExample();
         
         if(Constrants.Register.LOCAL.equals(user.getRegisterby())) {
             localauthExample.createCriteria().andUsernameEqualTo(username);
@@ -72,7 +73,7 @@ public class UserServiceImp implements UserService {
         user.setRegisterby(Constrants.Register.LOCAL);
         
         String hashed = WebUtils.hashWithSalt(password);
-        Localauth localauth = new Localauth();
+        LocalAuth localauth = new LocalAuth();
         localauth.setRoleid(Constrants.Roles.AUTHED);
         localauth.setUsername(username);
         localauth.setPassword(hashed);
@@ -82,7 +83,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public boolean checkUsername(String username) {
+    public boolean checkExist(String username) {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
         
@@ -103,7 +104,7 @@ public class UserServiceImp implements UserService {
             throw new PromptException("用户名不存在!");
         }
         
-        if(!(WebUtils.hashVertify(((Localauth)userInfo.getAuth()).getPassword(), password))) {
+        if(!(WebUtils.hashVertify(((LocalAuth)userInfo.getAuth()).getPassword(), password))) {
             throw new PromptException("密码错误!");
         }
         
@@ -115,6 +116,14 @@ public class UserServiceImp implements UserService {
     @Override
     public void logout(HttpServletResponse response) {       
         WebUtils.removeLoginCookie(response);
+    }
+
+    @Override
+    public void updatePassword(String username, String oldPassword, String newPassword) {
+        LocalAuthExample example = new LocalAuthExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        List<LocalAuth> users = localauthMapper.selectByExample(example);
+        
     }
 
 }

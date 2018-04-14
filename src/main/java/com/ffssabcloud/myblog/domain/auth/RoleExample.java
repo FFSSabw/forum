@@ -63,7 +63,6 @@ public class RoleExample {
         distinct = false;
     }
 
-
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -242,7 +241,6 @@ public class RoleExample {
             super();
         }
     }
-
 
     public static class Criterion {
         private String condition;
