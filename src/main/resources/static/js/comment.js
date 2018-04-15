@@ -2,7 +2,6 @@ function reply(author_id, author) {
 	$('#comment-form #textarea').attr('placeholder', '回复:' + author)
     $('#comment-form input[name=rid]').val(author_id);
     $('#comment-form input[name=r]').val(author);
-//    $("html,body").animate({ scrollTop: $('div.comment-container').offset().top }, 500);
 }
 
 function subComment() {

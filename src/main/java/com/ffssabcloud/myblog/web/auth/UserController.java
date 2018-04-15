@@ -119,22 +119,24 @@ public class UserController {
         return "auth/reset_password";
     }
     
-//    @PutMapping(value = "/users/password")
-//    @ResponseBody
-//    public RestResponseBo resetPassword(@RequestParam String username,
-//                                            @RequestParam String oldPassword,
-//                                            @RequestParam String newPassword,
-//                                            @RequestParam String reNewPassword) {
-//        if(!newPassword.equals(reNewPassword)) {
-//            return RestResponseBo.fail("密码不一致!");
-//        }
-//        
-//        try {
-//            userService.updatePassword(username, oldPassword, newPassword);
-//        } catch(Exception e) {
-//            return RestResponseBo.fail(e.getMessage());
-//        }
-//        
-//        return RestResponseBo.ok();
-//    }
+    @PutMapping(value = "/users/password")
+    @ResponseBody
+    public RestResponseBo resetPassword(HttpServletResponse response,
+                                            @RequestParam String username,
+                                            @RequestParam String oldPassword,
+                                            @RequestParam String newPassword,
+                                            @RequestParam String reNewPassword) {
+        if(!newPassword.equals(reNewPassword)) {
+            return RestResponseBo.fail("密码不一致!");
+        }
+        
+        try {
+            userService.updatePassword(username, oldPassword, newPassword);
+            userService.logout(response);
+        } catch(Exception e) {
+            return RestResponseBo.fail(e.getMessage());
+        }
+        
+        return RestResponseBo.ok();
+    }
 }

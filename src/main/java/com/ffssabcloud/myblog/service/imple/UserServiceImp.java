@@ -27,10 +27,10 @@ import com.ffssabcloud.myblog.utils.WebUtils;
 public class UserServiceImp implements UserService {
     
     @Autowired
-    UserMapper userMapper;
+    UserMapper userDao;
     
     @Autowired
-    LocalAuthMapper localauthMapper;
+    LocalAuthMapper localAuthDao;
     
     @Override
     public UserInfo getUserInfoByUsername(String username) {
@@ -38,7 +38,7 @@ public class UserServiceImp implements UserService {
         
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
-        List<User> users = userMapper.selectByExample(userExample);
+        List<User> users = userDao.selectByExample(userExample);
         
         if(users.isEmpty()) {
             return null;
@@ -49,7 +49,7 @@ public class UserServiceImp implements UserService {
         
         if(Constrants.Register.LOCAL.equals(user.getRegisterby())) {
             localauthExample.createCriteria().andUsernameEqualTo(username);
-            auth = localauthMapper.selectByExample(localauthExample);
+            auth = localAuthDao.selectByExample(localauthExample);
         } else {
             //其他登录方式
         }
@@ -78,8 +78,8 @@ public class UserServiceImp implements UserService {
         localauth.setUsername(username);
         localauth.setPassword(hashed);
         
-        userMapper.insert(user);
-        localauthMapper.insert(localauth);
+        userDao.insert(user);
+        localAuthDao.insert(localauth);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class UserServiceImp implements UserService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
         
-        if(userMapper.selectByExample(userExample).isEmpty()) {
+        if(userDao.selectByExample(userExample).isEmpty()) {
             return false;
         }      
         return true;
@@ -120,9 +120,24 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updatePassword(String username, String oldPassword, String newPassword) {
-        LocalAuthExample example = new LocalAuthExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        List<LocalAuth> users = localauthMapper.selectByExample(example);
+        LocalAuth localAuth = localAuthDao.selectByPrimaryKey(username);
+        
+        if(localAuth == null) {
+            throw new PromptException("用户名不存在!");
+        }
+        if(StringUtils.isAnyBlank(username, oldPassword, newPassword)) {
+            throw new PromptException("字段不能为空");
+        }
+        if(!WebUtils.hashVertify(localAuth.getPassword(), oldPassword)) {
+            throw new PromptException("旧密码错误!");
+        }
+        if(newPassword.length() < 6) {
+            throw new PromptException("密码长度不足!");
+        }
+        
+        
+        localAuth.setPassword(WebUtils.hashWithSalt(newPassword));
+        localAuthDao.updateByPrimaryKeySelective(localAuth);
         
     }
 
