@@ -30,6 +30,7 @@
                     <div class="dropdown-content">
                         <a th:href="@{/signout}">登出</a>
                         <a th:href="@{/users/password}">修改密码</a>
+                        <a th:if="${userInfo.user.username} eq 'admin'" th:href="@{/admin}">Admin</a>
                     </div>
                 </div>
             </nav>

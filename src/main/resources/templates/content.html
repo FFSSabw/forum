@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-
 <body>
     <div th:fragment="main-content" class="container">
         <div class="row">
@@ -19,7 +13,7 @@
                     <br>
                     <span class="label label-primary" th:each="tag:${#strings.arraySplit(article.tags,',')}" th:text="${tag}" th:style="'margin-right: 5px'"> 
                     </span>
-                    <p th:text="${article.description}"></p>
+                    <p th:text="${article.description}" style="margin-top: 12px;"></p>
                     <hr>
                 </div>
                 <div class="article-main" th:utext="${article.content}"></div>

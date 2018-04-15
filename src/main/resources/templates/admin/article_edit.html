@@ -91,10 +91,11 @@
     editor.txt.html(content)
     
     function save_article(is_publish) {
+    	good_template = editor.txt.html().replace(/\%/g, '%25');
         $.ajax({
             type: uri == '/admin/article' ? 'post' : 'put',
             url: uri,
-            data: $('#article-form').serialize()+'&content='+editor.txt.html(),
+            data: $('#article-form').serialize()+'&content='+good_template,
             async: false,
             dataType: 'json',
             success: function(result) {
