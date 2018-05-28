@@ -1,5 +1,7 @@
 package com.ffssabcloud.myblog.interceptor;
 
+import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

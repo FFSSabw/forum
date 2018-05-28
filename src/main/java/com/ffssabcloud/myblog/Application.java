@@ -1,5 +1,6 @@
 package com.ffssabcloud.myblog;
 
+import javax.servlet.Servlet;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -54,5 +55,6 @@ public class Application
     public static void main(String[] args )
     {
         SpringApplication.run(Application.class, args);
+        
     }
 }
